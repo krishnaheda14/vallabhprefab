@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Vallabh Prefab — Prefabricated Office Cabins, Precast Walls, Portable Toilets</title>
     <meta name="description" content="Vallabh Prefab delivers durable, fast-deploying prefabricated office cabins, precast compound walls and portable toilets — engineered for speed, cost savings and industrial reliability.">
-    <link rel="stylesheet" href="src/css/style.css">
-    <link rel="stylesheet" href="src/css/animate.css">
+  <link rel="stylesheet" href="/src/css/style.css">
+  <link rel="stylesheet" href="/src/css/animate.css">
   </head>
   <body>
     <!-- Header component -->
@@ -14,19 +14,28 @@
 
     <main>
       <!-- Hero -->
-      <section class="hero">
+        <!-- Top interior photo strip -->
+        <section class="top-interiors">
+          <div class="interiors-inner">
+            <div class="interior" style="--i:0"><img data-src="/src/assets/images/interior-1.jpg" alt="Interior sample 1" class="lazy"></div>
+            <div class="interior" style="--i:1"><img data-src="/src/assets/images/interior-2.jpg" alt="Interior sample 2" class="lazy"></div>
+            <div class="interior" style="--i:2"><img data-src="/src/assets/images/sample-office-1.jpg" alt="Office sample" class="lazy"></div>
+          </div>
+        </section>
+
+        <section class="hero">
         <div class="hero-inner">
           <h1 class="hero-title">Prefab solutions built for speed, strength & scale</h1>
           <p class="hero-sub">Factory-made office cabins, precast walls and washroom units — installed quickly with industrial-grade quality.</p>
           <div class="hero-ctas">
-            <a class="btn primary" href="src/pages/contact.html">Quick Inquiry</a>
-            <a class="btn ghost" href="src/pages/products.html">View Products</a>
+            <a class="btn primary" href="/src/pages/contact.html">Quick Inquiry</a>
+            <a class="btn ghost" href="/src/pages/products.html">View Products</a>
           </div>
         </div>
         <div class="hero-gallery" aria-hidden="true">
           <!-- simple hero slider placeholders (images replaced by real assets later) -->
-          <div class="slide"> <img data-src="src/assets/images/construction-1.jpg" alt="Factory assembly line" class="lazy"> </div>
-          <div class="slide"> <img data-src="src/assets/images/outside-view-1.jpg" alt="Prefab office installation" class="lazy"> </div>
+          <div class="slide"> <img data-src="/src/assets/images/construction-1.jpg" alt="Factory assembly line" class="lazy"> </div>
+          <div class="slide"> <img data-src="/src/assets/images/outside-view-1.jpg" alt="Prefab office installation" class="lazy"> </div>
         </div>
       </section>
 
@@ -47,7 +56,7 @@
       <section class="products-preview">
         <h2>Featured Products</h2>
         <div id="product-cards-placeholder" class="grid"></div>
-        <p class="center"><a class="btn" href="src/pages/products.html">See all products</a></p>
+  <p class="center"><a class="btn" href="/src/pages/products.html">See all products</a></p>
       </section>
 
       <!-- Top reasons to choose us -->
@@ -65,22 +74,22 @@
       <section class="carousel">
         <h2>Project gallery</h2>
         <div class="carousel-inner" id="carousel-inner">
-          <img data-src="src/assets/images/sample-office-1.jpg" alt="Sample office 1" class="lazy">
-          <img data-src="src/assets/images/interior-1.jpg" alt="Interior sample" class="lazy">
-          <img data-src="src/assets/images/outside-view-2.jpg" alt="Exterior sample" class="lazy">
+          <img data-src="/src/assets/images/sample-office-1.jpg" alt="Sample office 1" class="lazy">
+          <img data-src="/src/assets/images/interior-1.jpg" alt="Interior sample" class="lazy">
+          <img data-src="/src/assets/images/outside-view-2.jpg" alt="Exterior sample" class="lazy">
         </div>
       </section>
 
       <!-- Quick inquiry strip -->
       <section class="inquiry-strip">
         <p><strong>Ready to get a quote?</strong> Tell us your requirements and we’ll respond within one business day.</p>
-        <a class="btn primary" href="src/pages/contact.html">Send Inquiry</a>
+  <a class="btn primary" href="/src/pages/contact.html">Send Inquiry</a>
       </section>
     </main>
 
     <!-- Footer component -->
     <div id="footer-placeholder"></div>
 
-    <script src="src/js/main.js"></script>
+    <script src="/src/js/main.js"></script>
   </body>
 </html>

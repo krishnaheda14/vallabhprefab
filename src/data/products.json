@@ -1,16 +1,29 @@
 [
   {
     "id": "office-1",
-    "name": "Prefab Office",
-    "image": "../assets/images/sample-office-1.jpg",
-    "short": "Modular office unit",
-    "price": "Contact us"
+    "name": "Prefabricated Office Cabin",
+    "image": "/src/assets/images/sample-office-1.jpg",
+    "short": "Steel-framed modular office with insulation and finish options",
+    "features": ["Standard sizes: 10x10,12x10,20x10 ft","Pre-wired electrical","AC & partition options"],
+    "use_cases": ["Site offices","Sales kiosks","Temporary corporate spaces"],
+    "price": "Contact us for quote"
+  },
+  {
+    "id": "wall-1",
+    "name": "Precast Compound Wall",
+    "image": "/src/assets/images/outside-view-1.jpg",
+    "short": "Precast concrete panels for secure perimeters",
+    "features": ["Interlocking joints","Anti-corrosion finish","Fast installation"],
+    "use_cases": ["Commercial perimeters","Industrial sites","Housing complexes"],
+    "price": "Contact us for quote"
   },
   {
     "id": "toilet-1",
-    "name": "Prefab Toilet",
-    "image": "../assets/images/outside-view-1.jpg",
-    "short": "Compact sanitary unit",
-    "price": "Contact us"
+    "name": "Prefabricated Toilet Unit",
+    "image": "/src/assets/images/interior-2.jpg",
+    "short": "Hygienic, pre-plumbed washroom modules",
+    "features": ["HDPE sanitary fittings","Insulated walls","Pre-tested plumbing"],
+    "use_cases": ["Factories","Construction sites","Public events"],
+    "price": "Contact us for quote"
   }
 ]
