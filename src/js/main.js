@@ -66,6 +66,27 @@ function initReveal(){
   els.forEach(e=>io.observe(e));
 }
 
+// Card tilt: subtle 3D tilt interaction on pointer move
+function initCardTilt(){
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card=>{
+    card.style.transformStyle = 'preserve-3d';
+    card.addEventListener('pointermove', e=>{
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 .. 0.5
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      const rx = (-y) * 6; // rotation x
+      const ry = (x) * 8; // rotation y
+      card.style.transition = 'transform 0.12s cubic-bezier(.2,.9,.2,1)';
+      card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(6px)`;
+    });
+    card.addEventListener('pointerleave', ()=>{
+      card.style.transition = 'transform .45s cubic-bezier(.2,.9,.2,1)';
+      card.style.transform = '';
+    });
+  });
+}
+
 // Floating WhatsApp button creation
 function initWhatsApp(){
   if(document.querySelector('.whatsapp-fab')) return;
@@ -84,6 +105,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     initHeroSlider();
     initReveal();
     initWhatsApp();
+    initCardTilt();
   }, 300);
 });
 
