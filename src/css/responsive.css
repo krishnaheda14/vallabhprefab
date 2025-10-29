@@ -1,0 +1,4 @@
+@media (max-width: 600px){
+  .hero{padding:1.5rem}
+  .grid{grid-template-columns:1fr}
+}

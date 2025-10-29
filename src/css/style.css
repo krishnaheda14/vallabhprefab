@@ -1,0 +1,8 @@
+/* Global styles */
+:root{--accent:#2b7a78;--muted:#666}
+body{font-family:Arial,Helvetica,sans-serif;margin:0;color:#222}
+.hero{background:#f4f4f4;padding:3rem;text-align:center}
+.products-preview{padding:2rem}
+
+/* Simple responsive image grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "office-1",
+    "name": "Prefab Office",
+    "image": "../assets/images/sample-office-1.jpg",
+    "short": "Modular office unit",
+    "price": "Contact us"
+  },
+  {
+    "id": "toilet-1",
+    "name": "Prefab Toilet",
+    "image": "../assets/images/outside-view-1.jpg",
+    "short": "Compact sanitary unit",
+    "price": "Contact us"
+  }
+]
