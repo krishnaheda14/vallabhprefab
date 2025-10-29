@@ -1,36 +1,85 @@
-// Main JS: load components and add small interactivity
+// Main JS: load components and add advanced interactivity
 function loadHTML(path, selector){
   fetch(path).then(r=>r.text()).then(html=>{
     const el = document.querySelector(selector);
-    if(el) el.innerHTML = html;
+    if(el) {
+      el.innerHTML = html;
+      // Initialize product carousel after components load
+      if(selector === '#product-cards-placeholder') {
+        setTimeout(initProductCarousel, 200);
+      }
+    }
   }).catch(err=>{
-    // silent fail for local files if served via file://
     console.warn('Failed to load', path, err);
   });
 }
 
 function initLazy(){
-  const imgs = document.querySelectorAll('img.lazy');
+  const imgs = document.querySelectorAll('img.lazy, img[data-src]');
   const io = new IntersectionObserver((entries, obs)=>{
     entries.forEach(e=>{
       if(e.isIntersecting){
-        const img = e.target; img.src = img.dataset.src; img.classList.remove('lazy'); obs.unobserve(img);
+        const img = e.target;
+        if(img.dataset.src) {
+          img.src = img.dataset.src;
+          img.classList.remove('lazy');
+        }
+        obs.unobserve(img);
       }
     });
   },{rootMargin:'100px'});
   imgs.forEach(i=>io.observe(i));
 }
 
-document.addEventListener('DOMContentLoaded', ()=>{
-  // Use root-absolute paths so component fetch works from any page
-  loadHTML('/src/components/header.html','#header-placeholder');
-  loadHTML('/src/components/footer.html','#footer-placeholder');
-  loadHTML('/src/components/product-cards.html','#product-cards-placeholder');
-  // small delay to allow components to mount
-  setTimeout(()=>{
-    initLazy();
-  },150);
-});
+// Product Carousel: circular rotation with scroll trigger
+function initProductCarousel() {
+  const cards = document.querySelectorAll('.product-card');
+  if(!cards || cards.length === 0) return;
+  
+  let currentIndex = 0;
+  
+  // Set initial active card
+  const updateActiveCard = () => {
+    cards.forEach((card, idx) => {
+      card.classList.toggle('active', idx === currentIndex);
+    });
+  };
+  
+  updateActiveCard();
+  
+  // Auto-rotate every 3 seconds
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % cards.length;
+    updateActiveCard();
+  }, 3000);
+  
+  // Click to rotate to next
+  cards.forEach((card, idx) => {
+    card.addEventListener('click', () => {
+      currentIndex = idx;
+      updateActiveCard();
+    });
+  });
+  
+  // Scroll-triggered rotation
+  const carousel = document.querySelector('.products-carousel');
+  if(carousel) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          // Trigger rotation when scrolled into view
+          cards.forEach((c, i) => {
+            setTimeout(() => {
+              c.style.animation = `rotateIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.2}s both`;
+            }, 100);
+          });
+        }
+      });
+    }, { threshold: 0.3 });
+    
+    observer.observe(carousel);
+  }
+}
 
 // NAV toggle (for hamburger)
 document.addEventListener('click', (e)=>{
@@ -50,7 +99,7 @@ function initHeroSlider(){
     slides[idx].classList.remove('active');
     idx = (idx+1) % slides.length;
     slides[idx].classList.add('active');
-  }, 3800);
+  }, 4500);
 }
 
 // Reveal on scroll for elements with .reveal
@@ -66,47 +115,47 @@ function initReveal(){
   els.forEach(e=>io.observe(e));
 }
 
-// Card tilt: subtle 3D tilt interaction on pointer move
-function initCardTilt(){
-  const cards = document.querySelectorAll('.card');
-  cards.forEach(card=>{
-    card.style.transformStyle = 'preserve-3d';
-    card.addEventListener('pointermove', e=>{
-      const rect = card.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 .. 0.5
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      const rx = (-y) * 6; // rotation x
-      const ry = (x) * 8; // rotation y
-      card.style.transition = 'transform 0.12s cubic-bezier(.2,.9,.2,1)';
-      card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(6px)`;
-    });
-    card.addEventListener('pointerleave', ()=>{
-      card.style.transition = 'transform .45s cubic-bezier(.2,.9,.2,1)';
-      card.style.transform = '';
-    });
-  });
-}
-
 // Floating WhatsApp button creation
 function initWhatsApp(){
   if(document.querySelector('.whatsapp-fab')) return;
   const a = document.createElement('a');
-  // Updated to the requested contact number (India country code 91)
   a.href = 'https://wa.me/917058420660';
   a.className = 'whatsapp-fab';
   a.title = 'Chat on WhatsApp';
-  a.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.52 3.48A11.94 11.94 0 0012 0C5.373 0 .05 5.328.05 11.95c0 2.109.55 4.176 1.6 6.01L0 24l6.24-1.64c1.78 1.02 3.787 1.56 5.78 1.56 6.63 0 11.95-5.33 11.95-11.95 0-3.2-1.25-6.17-3.45-8.49z" fill="#fff"/><path d="M17.3 14.1c-.3-.15-1.78-.87-2.06-.97-.28-.1-.49-.15-.7.15-.2.3-.8.97-.98 1.17-.18.2-.35.22-.65.07-.3-.15-1.2-.44-2.28-1.4-.84-.75-1.4-1.67-1.57-1.97-.17-.3-.02-.46.12-.6.12-.12.28-.3.42-.45.14-.15.18-.25.28-.42.1-.17.04-.3-.02-.45-.06-.15-.7-1.68-.96-2.29-.25-.6-.5-.52-.7-.53-.18-.01-.4-.01-.62-.01-.22 0-.58.08-.88.37-.3.29-1.18 1.15-1.18 2.8 0 1.64 1.21 3.23 1.38 3.45.17.22 2.4 3.66 5.83 4.98 3.43 1.32 3.43.88 4.05.82.62-.06 1.98-.8 2.26-1.57.28-.77.28-1.43.2-1.57-.08-.14-.28-.22-.58-.37z" fill="#25D366"/></svg>';
+  a.innerHTML = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.52 3.48A11.94 11.94 0 0012 0C5.373 0 .05 5.328.05 11.95c0 2.109.55 4.176 1.6 6.01L0 24l6.24-1.64c1.78 1.02 3.787 1.56 5.78 1.56 6.63 0 11.95-5.33 11.95-11.95 0-3.2-1.25-6.17-3.45-8.49z" fill="#fff"/><path d="M17.3 14.1c-.3-.15-1.78-.87-2.06-.97-.28-.1-.49-.15-.7.15-.2.3-.8.97-.98 1.17-.18.2-.35.22-.65.07-.3-.15-1.2-.44-2.28-1.4-.84-.75-1.4-1.67-1.57-1.97-.17-.3-.02-.46.12-.6.12-.12.28-.3.42-.45.14-.15.18-.25.28-.42.1-.17.04-.3-.02-.45-.06-.15-.7-1.68-.96-2.29-.25-.6-.5-.52-.7-.53-.18-.01-.4-.01-.62-.01-.22 0-.58.08-.88.37-.3.29-1.18 1.15-1.18 2.8 0 1.64 1.21 3.23 1.38 3.45.17.22 2.4 3.66 5.83 4.98 3.43 1.32 3.43.88 4.05.82.62-.06 1.98-.8 2.26-1.57.28-.77.28-1.43.2-1.57-.08-.14-.28-.22-.58-.37z" fill="#25D366"/></svg>';
   a.target = '_blank';
+  a.rel = 'noopener noreferrer';
   document.body.appendChild(a);
 }
 
-// Kick off additional features after DOM ready and small delay
+// Smooth parallax scroll effect
+function initParallax() {
+  const hero = document.querySelector('.hero');
+  if(!hero) return;
+  
+  window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    if(scrolled < 600) {
+      hero.style.transform = `translateY(${scrolled * 0.4}px)`;
+    }
+  });
+}
+
+// Initialize everything
 document.addEventListener('DOMContentLoaded', ()=>{
+  // Load components
+  loadHTML('/src/components/header.html','#header-placeholder');
+  loadHTML('/src/components/footer.html','#footer-placeholder');
+  loadHTML('/src/components/product-cards.html','#product-cards-placeholder');
+  
+  // Initialize features with delays
   setTimeout(()=>{
+    initLazy();
     initHeroSlider();
     initReveal();
     initWhatsApp();
-    initCardTilt();
+    initParallax();
   }, 300);
 });
+
 
