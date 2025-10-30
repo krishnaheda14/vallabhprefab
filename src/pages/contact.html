@@ -52,7 +52,11 @@
                      `*Requirements:*%0A${encodeURIComponent(requirements)}`;
       
       // Open WhatsApp with pre-filled message
-      window.open(`https://wa.me/917058420660?text=${message}`, '_blank');
+      const whatsappWindow = window.open(`https://wa.me/917058420660?text=${message}`, '_blank');
+      
+      if(whatsappWindow) {
+        alert('Opening WhatsApp with your inquiry details...');
+      }
       
       // Reset form
       this.reset();
