@@ -72,50 +72,6 @@ img {
   display: block;
 }
 
-/* === PAGE LOADER === */
-.page-loader {
-  position: fixed;
-  inset: 0;
-  background: var(--gradient-hero);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  transition: opacity 0.6s ease;
-}
-
-.loader-content {
-  text-align: center;
-}
-
-.loader-logo {
-  font-family: var(--font-display);
-  font-size: 4rem;
-  font-weight: 800;
-  background: var(--gradient-accent);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 1rem;
-  animation: pulse 1.5s ease-in-out infinite;
-}
-
-.loader-text {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 1.2rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-}
-
-body.loading {
-  overflow: hidden;
-}
-
 /* === CONTAINER === */
 .container {
   max-width: 1200px;
@@ -238,7 +194,7 @@ body.loading {
   justify-content: space-between;
   gap: 3rem;
   min-height: 600px;
-  z-index: 2;
+  z-index: 1;
   margin-bottom: 0;
 }
 
@@ -424,7 +380,7 @@ body.loading {
   margin: 0;
   background: linear-gradient(180deg, var(--dark) 0%, var(--bg) 100%);
   position: relative;
-  z-index: 1;
+  z-index: 3;
 }
 
 .interiors-inner {
