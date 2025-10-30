@@ -37,7 +37,24 @@
   <script>
     document.getElementById('contact-form').addEventListener('submit', function(e){
       e.preventDefault();
-      alert('Thanks — form submission is a demo. Replace with backend endpoint or Netlify Forms.');
+      
+      // Get form data
+      const name = this.querySelector('[name="name"]').value;
+      const phone = this.querySelector('[name="phone"]').value;
+      const email = this.querySelector('[name="email"]').value;
+      const requirements = this.querySelector('[name="requirements"]').value;
+      
+      // Create WhatsApp message
+      const message = `*New Inquiry from Website*%0A%0A` +
+                     `*Name:* ${encodeURIComponent(name)}%0A` +
+                     `*Phone:* ${encodeURIComponent(phone)}%0A` +
+                     `*Email:* ${encodeURIComponent(email)}%0A%0A` +
+                     `*Requirements:*%0A${encodeURIComponent(requirements)}`;
+      
+      // Open WhatsApp with pre-filled message
+      window.open(`https://wa.me/917058420660?text=${message}`, '_blank');
+      
+      // Reset form
       this.reset();
     });
   </script>
