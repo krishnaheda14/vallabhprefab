@@ -31,71 +31,72 @@ function initLazy(){
   imgs.forEach(i=>io.observe(i));
 }
 
-// Product Carousel: 3D circular rotation with click navigation
+// Product Carousel: 3D circular rotation with arrow navigation
 function initProductCarousel() {
+  const carousel = document.querySelector('.products-carousel');
   const cards = document.querySelectorAll('.product-card');
   if(!cards || cards.length === 0) return;
   
-  let currentIndex = 1; // Start with middle card (index 1) active
+  let currentIndex = 1; // Start with middle card active
+  
+  // Create navigation arrows
+  const prevBtn = document.createElement('button');
+  prevBtn.className = 'carousel-nav prev';
+  prevBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  prevBtn.setAttribute('aria-label', 'Previous product');
+  
+  const nextBtn = document.createElement('button');
+  nextBtn.className = 'carousel-nav next';
+  nextBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  nextBtn.setAttribute('aria-label', 'Next product');
+  
+  carousel.appendChild(prevBtn);
+  carousel.appendChild(nextBtn);
   
   const updateCarousel = () => {
     cards.forEach((card, idx) => {
       card.classList.remove('active');
       
-      // Calculate position relative to current active card
-      const position = (idx - currentIndex + cards.length) % cards.length;
+      // Calculate relative position
+      const diff = idx - currentIndex;
       
-      if (position === 0) {
-        // Center card - active
+      if (diff === 0) {
+        // Center - active
         card.classList.add('active');
-        card.style.zIndex = 10;
-        card.style.transform = 'translate(-50%, -50%) scale(1.1) rotateY(0deg) translateZ(0)';
-        card.style.filter = 'blur(0) brightness(1)';
-        card.style.opacity = '1';
-      } else if (position === 1 || position === cards.length - 2) {
-        // Right card
-        card.style.zIndex = 5;
-        card.style.transform = 'translate(70%, -50%) scale(0.8) rotateY(-45deg) translateZ(-100px)';
-        card.style.filter = 'blur(3px) brightness(0.6)';
-        card.style.opacity = '0.7';
-      } else if (position === 2 || position === cards.length - 1) {
+        card.style.transform = 'translate(-50%, -50%) scale(1.1) rotateY(0deg)';
+      } else if (diff === -1 || diff === cards.length - 1) {
         // Left card
-        card.style.zIndex = 5;
-        card.style.transform = 'translate(-170%, -50%) scale(0.8) rotateY(45deg) translateZ(-100px)';
-        card.style.filter = 'blur(3px) brightness(0.6)';
-        card.style.opacity = '0.7';
+        card.style.transform = 'translate(-170%, -50%) scale(0.8) rotateY(45deg) translateZ(-80px)';
+      } else if (diff === 1 || diff === -cards.length + 1) {
+        // Right card
+        card.style.transform = 'translate(70%, -50%) scale(0.8) rotateY(-45deg) translateZ(-80px)';
       } else {
-        // Hidden cards
+        // Hidden
+        card.style.transform = 'translate(-50%, -50%) scale(0.6) rotateY(0deg)';
         card.style.opacity = '0';
-        card.style.zIndex = 1;
       }
     });
   };
   
-  // Initialize carousel
+  // Initialize
   updateCarousel();
   
+  // Arrow navigation
+  prevBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+    updateCarousel();
+  });
+  
+  nextBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % cards.length;
+    updateCarousel();
+  });
+  
   // Auto-rotate every 4 seconds
-  let autoRotate = setInterval(() => {
+  setInterval(() => {
     currentIndex = (currentIndex + 1) % cards.length;
     updateCarousel();
   }, 4000);
-  
-  // Click on any card to make it active
-  cards.forEach((card, idx) => {
-    card.addEventListener('click', () => {
-      if(idx !== currentIndex) {
-        currentIndex = idx;
-        updateCarousel();
-        // Reset auto-rotate on manual interaction
-        clearInterval(autoRotate);
-        autoRotate = setInterval(() => {
-          currentIndex = (currentIndex + 1) % cards.length;
-          updateCarousel();
-        }, 4000);
-      }
-    });
-  });
 }
 
 // NAV toggle (for hamburger)

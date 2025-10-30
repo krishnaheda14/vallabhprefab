@@ -574,80 +574,69 @@ img {
   box-shadow: var(--shadow-xl);
   transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
   transform-style: preserve-3d;
-  cursor: pointer;
   left: 50%;
   top: 50%;
   overflow: hidden;
-  backface-visibility: hidden;
+  pointer-events: none;
 }
 
-/* Center card (active) - fully visible, no rotation */
 .product-card.active {
   z-index: 10;
-  transform: translate(-50%, -50%) scale(1.1) rotateY(0deg) translateZ(0);
   filter: blur(0) brightness(1);
   opacity: 1;
   box-shadow: 0 30px 80px rgba(10, 95, 122, 0.35);
+  pointer-events: auto;
 }
 
-/* Left card - rotated and blurred */
-.product-card[data-product="0"]:not(.active) {
+.product-card:not(.active) {
   z-index: 5;
-  transform: translate(-170%, -50%) scale(0.8) rotateY(45deg) translateZ(-100px);
   filter: blur(3px) brightness(0.6);
   opacity: 0.7;
 }
 
-/* Right card - rotated and blurred */
-.product-card[data-product="2"]:not(.active) {
-  z-index: 5;
-  transform: translate(70%, -50%) scale(0.8) rotateY(-45deg) translateZ(-100px);
-  filter: blur(3px) brightness(0.6);
-  opacity: 0.7;
+/* Carousel navigation arrows */
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid var(--accent);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
-/* When middle card (index 1) is active, position others accordingly */
-.product-card[data-product="1"].active {
-  transform: translate(-50%, -50%) scale(1.1) rotateY(0deg) translateZ(0);
+.carousel-nav:hover {
+  background: var(--accent);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 24px rgba(10, 95, 122, 0.3);
 }
 
-.product-card[data-product="0"].active {
-  transform: translate(-50%, -50%) scale(1.1) rotateY(0deg) translateZ(0);
+.carousel-nav:hover svg {
+  stroke: #fff;
 }
 
-.product-card[data-product="0"].active ~ .product-card[data-product="1"] {
-  transform: translate(70%, -50%) scale(0.8) rotateY(-45deg) translateZ(-100px);
-  filter: blur(3px) brightness(0.6);
-  opacity: 0.7;
-  z-index: 5;
+.carousel-nav.prev {
+  left: -60px;
 }
 
-.product-card[data-product="0"].active ~ .product-card[data-product="2"] {
-  transform: translate(210%, -50%) scale(0.7) rotateY(-60deg) translateZ(-150px);
-  filter: blur(4px) brightness(0.5);
-  opacity: 0;
-  z-index: 1;
+.carousel-nav.next {
+  right: -60px;
 }
 
-.product-card[data-product="2"].active {
-  transform: translate(-50%, -50%) scale(1.1) rotateY(0deg) translateZ(0);
-}
-
-.product-card[data-product="2"].active ~ .product-card[data-product="0"] {
-  transform: translate(-290%, -50%) scale(0.7) rotateY(60deg) translateZ(-150px);
-  filter: blur(4px) brightness(0.5);
-  opacity: 0;
-  z-index: 1;
-}
-
-.product-card[data-product="1"]:not(.active) {
-  z-index: 5;
-}
-
-/* Hover effect on side cards */
-.product-card:not(.active):hover {
-  transform: translate(-50%, -50%) scale(0.85) rotateY(0deg) translateZ(-80px);
-  filter: blur(2px) brightness(0.75);
+.carousel-nav svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--accent);
+  stroke-width: 3;
+  transition: stroke 0.3s ease;
 }
 
 .card-image-wrapper {
@@ -697,6 +686,86 @@ img {
   align-items: center;
   gap: 0.5rem;
   line-height: 1.3;
+}
+
+/* === ADDITIONAL SOLUTIONS SECTION === */
+.more-products {
+  padding: 5rem 2rem;
+  background: linear-gradient(180deg, #fff 0%, var(--bg) 100%);
+}
+
+.more-products h2 {
+  text-align: center;
+  color: var(--accent);
+  margin-bottom: 3rem;
+  font-size: clamp(2rem, 4vw, 2.5rem);
+}
+
+.solutions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.solution-card {
+  background: #fff;
+  padding: 2.5rem 2rem;
+  border-radius: 20px;
+  box-shadow: var(--shadow-md);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
+}
+
+.solution-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--gradient-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.solution-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--accent-bright);
+}
+
+.solution-card:hover::before {
+  transform: scaleX(1);
+}
+
+.solution-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.solution-card:hover .solution-icon {
+  transform: scale(1.2) rotate(10deg);
+}
+
+.solution-card h3 {
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.solution-card p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
 /* === REASONS SECTION === */
@@ -948,10 +1017,12 @@ img {
     max-width: 320px;
   }
   
-  .product-card[data-product="0"]:not(.active),
-  .product-card[data-product="2"]:not(.active) {
-    transform: translate(-50%, -50%) scale(0.85);
-    filter: blur(1px) brightness(0.8);
+  .carousel-nav.prev {
+    left: 10px;
+  }
+  
+  .carousel-nav.next {
+    right: 10px;
   }
   
   .nav-toggle {
