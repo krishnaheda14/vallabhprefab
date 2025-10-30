@@ -31,54 +31,71 @@ function initLazy(){
   imgs.forEach(i=>io.observe(i));
 }
 
-// Product Carousel: circular rotation with scroll trigger
+// Product Carousel: 3D circular rotation with click navigation
 function initProductCarousel() {
   const cards = document.querySelectorAll('.product-card');
   if(!cards || cards.length === 0) return;
   
-  let currentIndex = 0;
+  let currentIndex = 1; // Start with middle card (index 1) active
   
-  // Set initial active card
-  const updateActiveCard = () => {
+  const updateCarousel = () => {
     cards.forEach((card, idx) => {
-      card.classList.toggle('active', idx === currentIndex);
+      card.classList.remove('active');
+      
+      // Calculate position relative to current active card
+      const position = (idx - currentIndex + cards.length) % cards.length;
+      
+      if (position === 0) {
+        // Center card - active
+        card.classList.add('active');
+        card.style.zIndex = 10;
+        card.style.transform = 'translate(-50%, -50%) scale(1.1) rotateY(0deg) translateZ(0)';
+        card.style.filter = 'blur(0) brightness(1)';
+        card.style.opacity = '1';
+      } else if (position === 1 || position === cards.length - 2) {
+        // Right card
+        card.style.zIndex = 5;
+        card.style.transform = 'translate(70%, -50%) scale(0.8) rotateY(-45deg) translateZ(-100px)';
+        card.style.filter = 'blur(3px) brightness(0.6)';
+        card.style.opacity = '0.7';
+      } else if (position === 2 || position === cards.length - 1) {
+        // Left card
+        card.style.zIndex = 5;
+        card.style.transform = 'translate(-170%, -50%) scale(0.8) rotateY(45deg) translateZ(-100px)';
+        card.style.filter = 'blur(3px) brightness(0.6)';
+        card.style.opacity = '0.7';
+      } else {
+        // Hidden cards
+        card.style.opacity = '0';
+        card.style.zIndex = 1;
+      }
     });
   };
   
-  updateActiveCard();
+  // Initialize carousel
+  updateCarousel();
   
-  // Auto-rotate every 3 seconds
-  setInterval(() => {
+  // Auto-rotate every 4 seconds
+  let autoRotate = setInterval(() => {
     currentIndex = (currentIndex + 1) % cards.length;
-    updateActiveCard();
-  }, 3000);
+    updateCarousel();
+  }, 4000);
   
-  // Click to rotate to next
+  // Click on any card to make it active
   cards.forEach((card, idx) => {
     card.addEventListener('click', () => {
-      currentIndex = idx;
-      updateActiveCard();
+      if(idx !== currentIndex) {
+        currentIndex = idx;
+        updateCarousel();
+        // Reset auto-rotate on manual interaction
+        clearInterval(autoRotate);
+        autoRotate = setInterval(() => {
+          currentIndex = (currentIndex + 1) % cards.length;
+          updateCarousel();
+        }, 4000);
+      }
     });
   });
-  
-  // Scroll-triggered rotation
-  const carousel = document.querySelector('.products-carousel');
-  if(carousel) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting) {
-          // Trigger rotation when scrolled into view
-          cards.forEach((c, i) => {
-            setTimeout(() => {
-              c.style.animation = `rotateIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.2}s both`;
-            }, 100);
-          });
-        }
-      });
-    }, { threshold: 0.3 });
-    
-    observer.observe(carousel);
-  }
 }
 
 // NAV toggle (for hamburger)
