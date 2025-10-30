@@ -11,7 +11,15 @@
   <link rel="stylesheet" href="/src/css/style.css">
   <link rel="stylesheet" href="/src/css/animate.css">
   </head>
-  <body>
+  <body class="loading">
+    <!-- Page loader -->
+    <div class="page-loader">
+      <div class="loader-content">
+        <div class="loader-logo">VP</div>
+        <div class="loader-text">Loading...</div>
+      </div>
+    </div>
+    
     <!-- Header component -->
     <div id="header-placeholder"></div>
 
@@ -93,6 +101,11 @@
     <!-- Footer component -->
     <div id="footer-placeholder"></div>
 
+    <!-- GSAP Core -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <!-- GSAP ScrollTrigger Plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
     <script src="/src/js/main.js"></script>
+    <script src="/src/js/animations.js"></script>
   </body>
 </html>
