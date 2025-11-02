@@ -255,3 +255,82 @@ body {
 .solutions-grid .solution-card:nth-child(3) { --i: 2; }
 .solutions-grid .solution-card:nth-child(4) { --i: 3; }
 .solutions-grid .solution-card:nth-child(5) { --i: 4; }
+
+/* Enhanced Product Carousel Animations */
+.product-card.active {
+  animation: float 3s ease-in-out infinite, cardGlow 2s ease-in-out infinite;
+}
+
+@keyframes cardGlow {
+  0%, 100% {
+    box-shadow: 0 30px 80px rgba(10, 95, 122, 0.35), 0 0 0 1px rgba(10, 95, 122, 0.1);
+  }
+  50% {
+    box-shadow: 0 35px 90px rgba(10, 95, 122, 0.45), 0 0 0 1px rgba(10, 95, 122, 0.2), 0 0 30px rgba(10, 95, 122, 0.1);
+  }
+}
+
+/* Carousel indicator dots (optional enhancement) */
+.carousel-indicators {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.carousel-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(10, 95, 122, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.carousel-indicator.active {
+  background: var(--accent);
+  width: 30px;
+  border-radius: 5px;
+}
+
+/* Mobile touch feedback and optimizations */
+@media (max-width: 768px) {
+  .carousel-nav:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+  
+  .product-card.active {
+    animation: mobileFloat 3s ease-in-out infinite;
+    box-shadow: 0 20px 60px rgba(10, 95, 122, 0.3), 0 0 0 1px rgba(10, 95, 122, 0.1) !important;
+  }
+  
+  @keyframes mobileFloat {
+    0%, 100% {
+      transform: translate(-50%, -50%) scale(1) translateY(0);
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1) translateY(-6px);
+    }
+  }
+  
+  /* Make active card more prominent on mobile */
+  .product-card.active::before {
+    opacity: 1;
+    height: 5px;
+  }
+  
+  /* Adjust carousel indicators for mobile */
+  .carousel-indicators {
+    margin-top: 1.5rem;
+    gap: 10px;
+  }
+  
+  .carousel-indicator {
+    width: 12px;
+    height: 12px;
+  }
+  
+  .carousel-indicator.active {
+    width: 36px;
+  }
+}

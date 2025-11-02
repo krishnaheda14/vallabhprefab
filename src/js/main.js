@@ -53,7 +53,24 @@ function initProductCarousel() {
   carousel.appendChild(prevBtn);
   carousel.appendChild(nextBtn);
   
+  // Create indicator dots
+  const indicatorsContainer = document.createElement('div');
+  indicatorsContainer.className = 'carousel-indicators';
+  cards.forEach((_, idx) => {
+    const dot = document.createElement('button');
+    dot.className = 'carousel-indicator';
+    dot.setAttribute('aria-label', `Go to product ${idx + 1}`);
+    dot.addEventListener('click', () => {
+      currentIndex = idx;
+      updateCarousel();
+    });
+    indicatorsContainer.appendChild(dot);
+  });
+  carousel.parentElement.appendChild(indicatorsContainer);
+  
   const updateCarousel = () => {
+    const isMobile = window.innerWidth <= 768;
+    
     cards.forEach((card, idx) => {
       card.classList.remove('active');
       
@@ -63,18 +80,31 @@ function initProductCarousel() {
       if (diff === 0) {
         // Center - active
         card.classList.add('active');
-        card.style.transform = 'translate(-50%, -50%) scale(1.1) rotateY(0deg)';
+        card.style.opacity = '1';
+        if (isMobile) {
+          card.style.transform = 'translate(-50%, -50%) scale(1) rotateY(0deg)';
+        } else {
+          card.style.transform = 'translate(-50%, -50%) scale(1.1) rotateY(0deg)';
+        }
       } else if (diff === -1 || diff === cards.length - 1) {
         // Left card
+        card.style.opacity = isMobile ? '0' : '0.7';
         card.style.transform = 'translate(-170%, -50%) scale(0.8) rotateY(45deg) translateZ(-80px)';
       } else if (diff === 1 || diff === -cards.length + 1) {
         // Right card
+        card.style.opacity = isMobile ? '0' : '0.7';
         card.style.transform = 'translate(70%, -50%) scale(0.8) rotateY(-45deg) translateZ(-80px)';
       } else {
         // Hidden
         card.style.transform = 'translate(-50%, -50%) scale(0.6) rotateY(0deg)';
         card.style.opacity = '0';
       }
+    });
+    
+    // Update indicators
+    const dots = document.querySelectorAll('.carousel-indicator');
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === currentIndex);
     });
   };
   
@@ -97,6 +127,9 @@ function initProductCarousel() {
     currentIndex = (currentIndex + 1) % cards.length;
     updateCarousel();
   }, 4000);
+  
+  // Handle window resize
+  window.addEventListener('resize', updateCarousel);
 }
 
 // NAV toggle (for hamburger)
