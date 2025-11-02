@@ -570,7 +570,7 @@ img {
 
 .products-carousel {
   position: relative;
-  height: 420px;
+  height: 500px;
   margin: 0 auto 3rem;
   max-width: 1100px;
   perspective: 1400px;
@@ -583,7 +583,7 @@ img {
 .product-card {
   position: absolute;
   width: 340px;
-  height: 380px;
+  height: 450px;
   background: linear-gradient(135deg, #fff 0%, #f8fbfd 100%);
   border-radius: 24px;
   padding: 1.5rem;
@@ -592,9 +592,23 @@ img {
   transform-style: preserve-3d;
   left: 50%;
   top: 50%;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   pointer-events: none;
   border: 1px solid rgba(10, 95, 122, 0.1);
+}
+
+.product-card::-webkit-scrollbar {
+  width: 4px;
+}
+
+.product-card::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.product-card::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 10px;
 }
 
 .product-card::before {
@@ -735,24 +749,26 @@ img {
 }
 
 .card-features li {
-  padding: 0.4rem 0;
-  color: var(--text);
+  padding: 0.5rem 0;
+  color: var(--dark);
   font-size: 0.85rem;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.6rem;
-  line-height: 1.4;
+  line-height: 1.5;
   position: relative;
-  padding-left: 1.2rem;
+  padding-left: 1.8rem;
 }
 
 .card-features li::before {
   content: '✓';
   position: absolute;
   left: 0;
+  top: 0.5rem;
   color: var(--accent);
   font-weight: bold;
   font-size: 1rem;
+  flex-shrink: 0;
 }
 
 /* === ADDITIONAL SOLUTIONS SECTION === */
@@ -1101,7 +1117,7 @@ img {
   }
   
   .products-carousel {
-    height: 500px;
+    height: 560px;
     perspective: 800px;
     padding: 0 10px;
     max-width: 100%;
@@ -1110,7 +1126,7 @@ img {
   .product-card {
     width: calc(100vw - 100px);
     max-width: 360px;
-    height: 440px;
+    height: 500px;
     padding: 1.5rem;
     border-radius: 20px;
   }
@@ -1141,7 +1157,13 @@ img {
   
   .card-features li {
     font-size: 0.85rem;
-    padding: 0.4rem 0;
+    padding: 0.5rem 0;
+    padding-left: 1.8rem;
+    align-items: flex-start;
+  }
+  
+  .card-features li::before {
+    top: 0.5rem;
   }
   
   .carousel-nav {
@@ -1201,11 +1223,12 @@ img {
   .products-carousel {
     max-width: 900px;
     padding: 0 80px;
+    height: 480px;
   }
   
   .product-card {
-    width: 300px;
-    height: 360px;
+    width: 320px;
+    height: 430px;
   }
   
   .carousel-nav.prev {
@@ -1220,14 +1243,14 @@ img {
 /* Small mobile devices */
 @media (max-width: 480px) {
   .products-carousel {
-    height: 520px;
+    height: 580px;
     padding: 0 5px;
   }
   
   .product-card {
     width: calc(100vw - 80px);
     max-width: 340px;
-    height: 460px;
+    height: 520px;
     padding: 1.2rem;
   }
   
