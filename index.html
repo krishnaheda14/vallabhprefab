@@ -12,35 +12,90 @@
   <link rel="stylesheet" href="/src/css/animate.css">
   <link rel="stylesheet" href="/src/css/enhancements.css">
   <link rel="stylesheet" href="/src/css/advanced-animations.css">
+  <link rel="stylesheet" href="/src/css/badass-hero.css">
   </head>
   <body>
+    <!-- Loading screen -->
+    <div id="page-loader" style="position:fixed;inset:0;background:linear-gradient(135deg,#0d1b2a,#0a5f7a);display:flex;align-items:center;justify-content:center;z-index:99999;transition:opacity 0.5s ease,visibility 0.5s ease;">
+      <div style="text-align:center;">
+        <div style="width:80px;height:80px;border:4px solid rgba(255,255,255,0.1);border-top-color:#ffc107;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 1.5rem;"></div>
+        <h2 style="color:#fff;font-size:1.5rem;margin-bottom:0.5rem;">Vallabh Prefab</h2>
+        <p style="color:rgba(255,255,255,0.7);">Loading Amazing Experience...</p>
+      </div>
+    </div>
+    
+    <!-- Scroll progress indicator -->
+    <div class="scroll-indicator"></div>
     <!-- Header component -->
     <div id="header-placeholder"></div>
 
     <main>
-      <!-- Hero -->
+      <!-- BADASS HERO - Fullscreen Cinematic Experience -->
       <section class="hero">
-        <div class="hero-inner">
-          <h1 class="hero-title">Prefab solutions built for speed, strength & scale</h1>
-          <p class="hero-sub">Factory-made office cabins, precast walls and washroom units — installed quickly with industrial-grade quality.</p>
-          <div class="hero-ctas">
-            <a class="btn primary" href="/src/pages/contact.html">Quick Inquiry</a>
-            <a class="btn ghost" href="/src/pages/products.html">View Products</a>
+        <!-- Slideshow Background -->
+        <div class="hero-slideshow">
+          <div class="hero-slide active">
+            <img src="/src/assets/images/interior-1.jpg" alt="Premium Office Interior">
+          </div>
+          <div class="hero-slide">
+            <img src="/src/assets/images/sampleofficefullyconstructedexterior.jpg" alt="Completed Office Exterior">
+          </div>
+          <div class="hero-slide">
+            <img src="/src/assets/images/labour cottage sample.jpg" alt="Labour Accommodation">
+          </div>
+          <div class="hero-slide">
+            <img src="/src/assets/images/construction-1.jpg" alt="Construction Excellence">
+          </div>
+          <div class="hero-slide">
+            <img src="/src/assets/images/boundarywall2.jpg" alt="Precast Boundary Walls">
           </div>
         </div>
-        <div class="hero-gallery" aria-hidden="true">
-          <!-- simple hero slider placeholders (images replaced by real assets later) -->
-          <div class="slide"> <img data-src="/src/assets/images/construction-1.jpg" alt="Factory assembly line" class="lazy"> </div>
-          <div class="slide"> <img data-src="/src/assets/images/outside-view-1.jpg" alt="Prefab office installation" class="lazy"> </div>
+        
+        <!-- Overlay for text readability -->
+        <div class="hero-overlay"></div>
+        
+        <!-- Hero Content -->
+        <div class="hero-content-wrapper">
+         
+          <h1 class="hero-title-massive">
+            <span style="animation-delay: 0s">Build</span> <span class="highlight" style="animation-delay: 0.1s">Faster</span><span style="animation-delay: 0.2s">.</span><br>
+            <span style="animation-delay: 0.3s">Build</span> <span class="highlight" style="animation-delay: 0.4s">Stronger</span><span style="animation-delay: 0.5s">.</span><br>
+            <span style="animation-delay: 0.6s">Build</span> <span class="highlight" style="animation-delay: 0.7s">Smarter</span><span style="animation-delay: 0.8s">.</span>
+          </h1>
+          <p class="hero-subtitle-massive">
+            Factory precision prefabricated office cabins, precast compound walls & portable washrooms , engineered for speed, durability & unmatched cost efficiency.
+          </p>
+          <div class="hero-ctas-massive">
+            <a class="btn-massive primary" href="/src/pages/contact.html">
+              <span>Get Instant Quote</span>
+              <span>→</span>
+            </a>
+            <a class="btn-massive secondary" href="/src/pages/products.html">
+              <span>Explore Products</span>
+              <span>↗</span>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator-hero">Scroll to explore</div>
+        
+        <!-- Slideshow Controls -->
+        <div class="hero-slide-controls">
+          <button class="hero-slide-dot active" aria-label="Slide 1"></button>
+          <button class="hero-slide-dot" aria-label="Slide 2"></button>
+          <button class="hero-slide-dot" aria-label="Slide 3"></button>
+          <button class="hero-slide-dot" aria-label="Slide 4"></button>
+          <button class="hero-slide-dot" aria-label="Slide 5"></button>
         </div>
       </section>
 
       <!-- Top interior photo strip -->
       <section class="top-interiors">
         <div class="interiors-inner">
-          <div class="interior" style="--i:0"><img data-src="/src/assets/images/labour cottage sample.jpg" alt="Labour Cottage" class="lazy"></div>
-          <div class="interior" style="--i:1"><img data-src="/src/assets/images/sampleofficefullyconstructedexterior.jpg" alt="Office Exterior" class="lazy"></div>
-          <div class="interior" style="--i:2"><img data-src="/src/assets/images/interior-1.jpg" alt="Interior sample" class="lazy"></div>
+          <div class="interior" style="--i:0"><img data-src="/src/assets/images/construction-1.jpg" alt="Construction Site" class="lazy"></div>
+          <div class="interior" style="--i:1"><img data-src="/src/assets/images/outside-view-1.jpg" alt="Exterior View" class="lazy"></div>
+          <div class="interior" style="--i:2"><img data-src="/src/assets/images/labour cottage sample.jpg" alt="Labour Cottage" class="lazy"></div>
           <div class="interior" style="--i:3"><img data-src="/src/assets/images/boundarywall2.jpg" alt="Boundary Wall" class="lazy"></div>
         </div>
       </section>
@@ -59,7 +114,7 @@
       </section>
 
       <!-- Featured products preview -->
-      <section class="products-preview reveal">
+      <section class="products-preview">
         <h2>Featured Products</h2>
         <div id="product-cards-placeholder" class="products-carousel"></div>
   <p class="center"><a class="btn primary-cta" href="/src/pages/products.html">See all products</a></p>
@@ -80,14 +135,22 @@
       <section class="carousel reveal">
         <h2>Project Gallery</h2>
         <div class="carousel-inner" id="carousel-inner">
-          <img data-src="/src/assets/images/labour cottage sample.jpg" alt="Labour Cottage" class="lazy">
-          <img data-src="/src/assets/images/sampleofficefullyconstructedexterior.jpg" alt="Office Exterior" class="lazy">
-          <img data-src="/src/assets/images/sample-office-1.jpg" alt="Office Sample" class="lazy">
           <img data-src="/src/assets/images/interior-1.jpg" alt="Interior Sample" class="lazy">
-          <img data-src="/src/assets/images/boundarywall2.jpg" alt="Boundary Wall" class="lazy">
+          <img data-src="/src/assets/images/sampleofficefullyconstructedexterior.jpg" alt="Office Exterior" class="lazy">
+          <img data-src="/src/assets/images/labour cottage sample.jpg" alt="Labour Cottage" class="lazy">
+          <img data-src="/src/assets/images/sample-office-1.jpg" alt="Office Sample" class="lazy">
+          <img data-src="/src/assets/images/sample-office-2.jpg" alt="Office Sample 2" class="lazy">
+          <img data-src="/src/assets/images/interior-2.jpg" alt="Interior Sample 2" class="lazy">
+          <img data-src="/src/assets/images/boundarywall.jpg" alt="Boundary Wall" class="lazy">
+          <img data-src="/src/assets/images/boundarywall1.jpg" alt="Boundary Wall Detail" class="lazy">
+          <img data-src="/src/assets/images/boundarywall2.jpg" alt="Boundary Wall Complete" class="lazy">
           <img data-src="/src/assets/images/construction-1.jpg" alt="Construction Site" class="lazy">
-          <img data-src="/src/assets/images/outside-view-2.jpg" alt="Exterior View" class="lazy">
           <img data-src="/src/assets/images/construction-2.jpg" alt="Construction Progress" class="lazy">
+          <img data-src="/src/assets/images/outside-view-1.jpg" alt="Exterior View 1" class="lazy">
+          <img data-src="/src/assets/images/outside-view-2.jpg" alt="Exterior View 2" class="lazy">
+          <img data-src="/src/assets/images/IMG-20251029-WA0334.jpg" alt="Project Photo 1" class="lazy">
+          <img data-src="/src/assets/images/IMG-20251029-WA0426.jpg" alt="Project Photo 2" class="lazy">
+          <img data-src="/src/assets/images/IMG-20251029-WA0427.jpg" alt="Project Photo 3" class="lazy">
         </div>
       </section>
 
@@ -102,7 +165,34 @@
     <div id="footer-placeholder"></div>
 
     <script src="/src/js/main.js"></script>
-    <script src="/src/js/advanced-animations.js"></script>
     <script src="/src/js/enhancements.js"></script>
+    <script src="/src/js/advanced-animations.js"></script>
+    <script src="/src/js/badass-hero.js"></script>
+    <!-- insane-animations.js intentionally disabled to avoid layout interference -->
+    
+    <!-- Page loader script -->
+    <script>
+      window.addEventListener('load', () => {
+        const loader = document.getElementById('page-loader');
+        setTimeout(() => {
+          loader.style.opacity = '0';
+          loader.style.visibility = 'hidden';
+          setTimeout(() => loader.remove(), 500);
+        }, 1000);
+      });
+    </script>
+    
+    <!-- Scroll progress script -->
+    <script>
+      window.addEventListener('scroll', () => {
+        const indicator = document.querySelector('.scroll-indicator');
+        if (indicator) {
+          const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+          const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          const scrolled = (winScroll / height) * 100;
+          indicator.style.width = scrolled + '%';
+        }
+      });
+    </script>
   </body>
 </html>

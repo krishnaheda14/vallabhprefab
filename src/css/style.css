@@ -1815,3 +1815,57 @@ img {
     gap: 2rem;
   }
 }
+
+/* ====================
+   OVERRIDES - FIX VISIBILITY & NON-INTERFERENCE
+   These rules are deliberately specific and loaded last to
+   restore visibility after optional animation bundles.
+   ==================== */
+
+/* Ensure headings in light sections remain visible (no white-on-white) */
+.products-preview h2,
+.carousel h2,
+.more-products h2,
+.reasons h2,
+.solutions-grid h2,
+.intro h2 {
+  background: none !important;
+  -webkit-text-fill-color: unset !important;
+  color: var(--accent) !important;
+}
+
+/* Ensure hero title stays bold and visible on top of animated layers */
+.hero-title {
+  z-index: 5 !important;
+  position: relative !important;
+  color: #fff !important;
+  -webkit-text-fill-color: unset !important;
+  background: none !important;
+}
+
+/* Restore cursor if any stylesheet hid it */
+@media (min-width: 769px) {
+  body, body * { cursor: auto !important; }
+}
+
+/* Make carousel navigation plainly visible and inside container */
+.carousel-nav {
+  left: 12px !important;
+  right: 12px !important;
+}
+.carousel-nav.prev { left: 12px !important; right: auto !important; }
+.carousel-nav.next { right: 12px !important; left: auto !important; }
+.carousel-nav { z-index: 60 !important; }
+
+/* Make sure intro paragraph is readable */
+.intro p { color: var(--dark) !important; }
+
+/* Disable any heavy page-wide opacity hiding that some animation bundles add */
+body.page-hidden, body[data-page-hidden] { opacity: 1 !important; visibility: visible !important; }
+
+/* Limit any site-global animation intensity on mobile */
+@media (max-width: 768px) {
+  .hero, .intro-stats, .products-preview, .carousel { animation: none !important; }
+  .hero::before, .hero::after { animation: none !important; }
+}
+
