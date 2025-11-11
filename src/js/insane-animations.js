@@ -510,7 +510,7 @@
   }
   
   function startAnimations() {
-    console.log('🚀 Initializing INSANE animations...');
+    // Initializing INSANE animations (debug log removed)
     
     // Only on desktop for heavy effects
     const isDesktop = window.innerWidth > 768;
@@ -531,9 +531,9 @@
       initRippleEffect();
       initImageZoom();
       
-      console.log('✨ INSANE animations loaded successfully!');
+      // INSANE animations loaded (debug logs removed)
     } catch (error) {
-      console.warn('Animation error (non-critical):', error);
+      // Non-critical animation error suppressed from console
     }
   }
   

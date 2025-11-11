@@ -10,7 +10,7 @@ function loadHTML(path, selector){
       }
     }
   }).catch(err=>{
-    console.warn('Failed to load', path, err);
+    // Failed to load resource - debug log removed
   });
 }
 

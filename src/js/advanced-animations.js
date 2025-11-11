@@ -352,7 +352,7 @@
         // initCursorTrail(); // Optional - can be overwhelming
       }
       
-      console.log('🚀 Advanced animations loaded successfully!');
+      // Advanced animations initialized (debug log removed)
     }, 100);
   }
 

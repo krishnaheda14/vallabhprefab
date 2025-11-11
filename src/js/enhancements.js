@@ -120,9 +120,9 @@
       enhanceLazyLoading();
       animateCounters();
       initParallax();
-      magneticButtons();
+  magneticButtons();
       
-      console.log('✨ Animations enhanced successfully');
+  // Animations initialized (debug log removed)
     }, 100);
   }
 
