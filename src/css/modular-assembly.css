@@ -1,0 +1,485 @@
+/* MODULAR ASSEMBLY DESIGN - DISABLED FOR NOW */
+/* Keeping only the blueprint grid background effect */
+
+:root {
+  --blueprint-color: rgba(10, 95, 122, 0.15);
+  --blueprint-line: rgba(10, 95, 122, 0.3);
+  --tech-accent: #0a5f7a;
+}
+
+/* ANIMATED BLUEPRINT GRID BACKGROUND */
+.hero {
+  position: relative;
+  background: linear-gradient(135deg, #0d1b2a 0%, #1a2332 50%, #0d1b2a 100%);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(var(--blueprint-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--blueprint-line) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: blueprintScroll 40s linear infinite;
+  opacity: 0.4;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes blueprintScroll {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
+}
+
+/* Technical overlay dots pattern */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, var(--blueprint-color) 1px, transparent 1px);
+  background-size: 20px 20px;
+  animation: blueprintScroll 60s linear infinite reverse;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Ensure hero content stays above backgrounds */
+.hero-content-wrapper {
+  position: relative;
+  z-index: 2;
+}
+
+/* MODULAR TEXT DROP ANIMATION - DISABLED FOR NOW */
+/* Keeping text fully visible by default */
+.hero-title-massive span {
+  display: inline-block;
+  /* Text visible and bright by default */
+  opacity: 1 !important;
+  transform: none !important;
+  transform-origin: center bottom;
+}
+.hero-title-massive .highlight {
+  position: relative;
+  background: linear-gradient(135deg, #ffc107, #ff9800);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(255, 193, 7, 0.3);
+}
+
+/* Blueprint-style decorative elements */
+.hero-title-massive .highlight::before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  width: 10px;
+  height: 2px;
+  background: #ffc107;
+  opacity: 0;
+  animation: technicalLine 3s ease-in-out infinite;
+}
+
+.hero-title-massive .highlight::after {
+  content: '';
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  width: 10px;
+  height: 2px;
+  background: #ffc107;
+  opacity: 0;
+  animation: technicalLine 3s ease-in-out infinite 1.5s;
+}
+
+@keyframes technicalLine {
+  0%, 100% {
+    opacity: 0;
+    width: 0;
+  }
+  50% {
+    opacity: 1;
+    width: 10px;
+  }
+}
+
+/* Screen shake effect for hero container */
+.hero-shake {
+  animation: screenShake 0.3s ease-in-out;
+}
+
+@keyframes screenShake {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-4px, 2px);
+  }
+  50% {
+    transform: translate(4px, -2px);
+  }
+  75% {
+    transform: translate(-2px, -2px);
+  }
+}
+
+/* Impact ripple effect */
+.impact-ripple {
+  position: fixed;
+  border: 2px solid rgba(255, 193, 7, 0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  animation: rippleExpand 0.8s ease-out forwards;
+}
+
+@keyframes rippleExpand {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+  }
+}
+
+/* ASSEMBLY EFFECT FOR SECTIONS - DISABLED */
+/* Keep all sections visible */
+.assembly-section {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Product cards - visible by default */
+.product-card {
+  /* Animation classes removed to keep cards visible */
+}
+
+.product-card.assemble-left,
+.product-card.assemble-right,
+.product-card.assemble-bottom {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Intro stats - always visible */
+.stat {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Reasons grid - always visible */
+.reasons-grid li {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* BLUEPRINT BUTTON HOVER EFFECTS */
+.btn-massive,
+.btn.primary-cta,
+.btn.primary {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-massive::before,
+.btn.primary-cta::before,
+.btn.primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(var(--blueprint-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--blueprint-line) 1px, transparent 1px);
+  background-size: 10px 10px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+.btn-massive:hover::before,
+.btn.primary-cta:hover::before,
+.btn.primary:hover::before {
+  opacity: 0.8;
+  animation: blueprintPulse 2s ease-in-out infinite;
+}
+
+@keyframes blueprintPulse {
+  0%, 100% {
+    background-size: 10px 10px;
+  }
+  50% {
+    background-size: 12px 12px;
+  }
+}
+
+/* Technical corner brackets on hover */
+.btn-massive::after,
+.btn.primary-cta::after,
+.btn.primary::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid transparent;
+  opacity: 0;
+  transition: all 0.4s ease;
+  pointer-events: none;
+}
+
+.btn-massive:hover::after,
+.btn.primary-cta:hover::after,
+.btn.primary:hover::after {
+  opacity: 1;
+  border-color: rgba(255, 255, 255, 0.4);
+  inset: 8px;
+}
+
+/* Button text needs to be above pseudo-elements */
+.btn-massive span,
+.btn.primary-cta,
+.btn.primary {
+  position: relative;
+  z-index: 1;
+}
+
+/* CAD-style corners */
+.cad-corners {
+  position: relative;
+}
+
+.cad-corners::before,
+.cad-corners::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--accent);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.cad-corners::before {
+  top: -5px;
+  left: -5px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.cad-corners::after {
+  bottom: -5px;
+  right: -5px;
+  border-left: none;
+  border-top: none;
+}
+
+.cad-corners:hover::before,
+.cad-corners:hover::after {
+  opacity: 1;
+}
+
+/* TECHNICAL MEASUREMENT LINES */
+.dimension-line {
+  position: absolute;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.dimension-line::before,
+.dimension-line::after {
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 8px;
+  background: var(--accent);
+  top: -4px;
+}
+
+.dimension-line::before {
+  left: 0;
+}
+
+.dimension-line::after {
+  right: 0;
+}
+
+/* Show dimension lines on section hover */
+.intro-stats:hover .dimension-line,
+.products-preview:hover .dimension-line {
+  opacity: 0.5;
+}
+
+/* WELDING SPARK EFFECT on card entry */
+@keyframes weldingSpark {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(var(--spark-x, 0), var(--spark-y, 0)) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--spark-x, 0) * 2), calc(var(--spark-y, 0) * 2)) scale(0);
+  }
+}
+
+.welding-spark {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #ffc107;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #ffc107, 0 0 20px #ff9800;
+  animation: weldingSpark 0.6s ease-out forwards;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* CONSTRUCTION PROGRESS BAR */
+.construction-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #0a5f7a, #ffc107);
+  box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+  z-index: 10000;
+  transform-origin: left;
+  transition: width 0.1s ease-out;
+}
+
+/* ASSEMBLY SOUND WAVE EFFECT */
+.sound-wave {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  border: 2px solid rgba(255, 193, 7, 0.3);
+  border-radius: 50%;
+  animation: soundWaveExpand 1s ease-out forwards;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes soundWaveExpand {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    width: 500px;
+    height: 500px;
+    opacity: 0;
+  }
+}
+
+/* TECHNICAL DATA OVERLAY - Hidden by default (dev tool) */
+.tech-overlay {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 1rem;
+  background: rgba(13, 27, 42, 0.9);
+  border: 1px solid var(--blueprint-line);
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  color: #ffc107;
+  opacity: 0;
+  z-index: 1000;
+  pointer-events: none;
+  backdrop-filter: blur(10px);
+  display: none; /* Hide by default */
+}
+
+.tech-overlay div {
+  margin: 0.25rem 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.tech-overlay span:first-child {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* HOVER SCAN LINE EFFECT */
+.scan-line {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(10, 95, 122, 0.1) 45%,
+    rgba(10, 95, 122, 0.3) 50%,
+    rgba(10, 95, 122, 0.1) 55%,
+    transparent 100%
+  );
+  opacity: 0;
+  animation: scanMove 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes scanMove {
+  0%, 100% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.card:hover .scan-line,
+.product-card:hover .scan-line {
+  opacity: 1;
+}
+
+/* Add scan line to cards */
+.card,
+.product-card {
+  position: relative;
+  overflow: hidden;
+}
+
+/* RESPONSIVE ADJUSTMENTS */
+@media (max-width: 768px) {
+  .hero::before,
+  .hero::after {
+    animation-duration: 60s;
+    opacity: 0.2;
+  }
+  
+  .tech-overlay {
+    display: none;
+  }
+}
+
+/* Disable animations for reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

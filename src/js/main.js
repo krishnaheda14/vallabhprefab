@@ -4,9 +4,19 @@ function loadHTML(path, selector){
     const el = document.querySelector(selector);
     if(el) {
       el.innerHTML = html;
-      // Initialize product carousel after components load
+      // Initialize modern carousel after product cards load
       if(selector === '#product-cards-placeholder') {
-        setTimeout(initProductCarousel, 200);
+        // Load modern carousel script dynamically
+        const script = document.createElement('script');
+        script.src = '/src/js/modern-carousel.js';
+        script.onload = () => {
+          setTimeout(() => {
+            if (typeof window.initProductCarousel === 'function') {
+              window.initProductCarousel();
+            }
+          }, 200);
+        };
+        document.body.appendChild(script);
       }
     }
   }).catch(err=>{
@@ -29,107 +39,6 @@ function initLazy(){
     });
   },{rootMargin:'100px'});
   imgs.forEach(i=>io.observe(i));
-}
-
-// Product Carousel: 3D circular rotation with arrow navigation
-function initProductCarousel() {
-  const carousel = document.querySelector('.products-carousel');
-  const cards = document.querySelectorAll('.product-card');
-  if(!cards || cards.length === 0) return;
-  
-  let currentIndex = 1; // Start with middle card active
-  
-  // Create navigation arrows
-  const prevBtn = document.createElement('button');
-  prevBtn.className = 'carousel-nav prev';
-  prevBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  prevBtn.setAttribute('aria-label', 'Previous product');
-  
-  const nextBtn = document.createElement('button');
-  nextBtn.className = 'carousel-nav next';
-  nextBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  nextBtn.setAttribute('aria-label', 'Next product');
-  
-  carousel.appendChild(prevBtn);
-  carousel.appendChild(nextBtn);
-  
-  // Create indicator dots
-  const indicatorsContainer = document.createElement('div');
-  indicatorsContainer.className = 'carousel-indicators';
-  cards.forEach((_, idx) => {
-    const dot = document.createElement('button');
-    dot.className = 'carousel-indicator';
-    dot.setAttribute('aria-label', `Go to product ${idx + 1}`);
-    dot.addEventListener('click', () => {
-      currentIndex = idx;
-      updateCarousel();
-    });
-    indicatorsContainer.appendChild(dot);
-  });
-  carousel.parentElement.appendChild(indicatorsContainer);
-  
-  const updateCarousel = () => {
-    const isMobile = window.innerWidth <= 768;
-    
-    cards.forEach((card, idx) => {
-      card.classList.remove('active');
-      
-      // Calculate relative position
-      const diff = idx - currentIndex;
-      
-      if (diff === 0) {
-        // Center - active
-        card.classList.add('active');
-        card.style.opacity = '1';
-        if (isMobile) {
-          card.style.transform = 'translate(-50%, -50%) scale(1) rotateY(0deg)';
-        } else {
-          card.style.transform = 'translate(-50%, -50%) scale(1.1) rotateY(0deg)';
-        }
-      } else if (diff === -1 || diff === cards.length - 1) {
-        // Left card
-        card.style.opacity = isMobile ? '0' : '0.7';
-        card.style.transform = 'translate(-170%, -50%) scale(0.8) rotateY(45deg) translateZ(-80px)';
-      } else if (diff === 1 || diff === -cards.length + 1) {
-        // Right card
-        card.style.opacity = isMobile ? '0' : '0.7';
-        card.style.transform = 'translate(70%, -50%) scale(0.8) rotateY(-45deg) translateZ(-80px)';
-      } else {
-        // Hidden
-        card.style.transform = 'translate(-50%, -50%) scale(0.6) rotateY(0deg)';
-        card.style.opacity = '0';
-      }
-    });
-    
-    // Update indicators
-    const dots = document.querySelectorAll('.carousel-indicator');
-    dots.forEach((dot, idx) => {
-      dot.classList.toggle('active', idx === currentIndex);
-    });
-  };
-  
-  // Initialize
-  updateCarousel();
-  
-  // Arrow navigation
-  prevBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + cards.length) % cards.length;
-    updateCarousel();
-  });
-  
-  nextBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % cards.length;
-    updateCarousel();
-  });
-  
-  // Auto-rotate every 4 seconds
-  setInterval(() => {
-    currentIndex = (currentIndex + 1) % cards.length;
-    updateCarousel();
-  }, 4000);
-  
-  // Handle window resize
-  window.addEventListener('resize', updateCarousel);
 }
 
 // NAV toggle (for hamburger)
@@ -192,8 +101,37 @@ function initParallax() {
   });
 }
 
+// Premium loading animation with progress
+function initPremiumLoader() {
+  const loader = document.getElementById('page-loader');
+  const percentage = document.getElementById('loader-percentage');
+  let progress = 0;
+  
+  const interval = setInterval(() => {
+    progress += Math.random() * 15;
+    if (progress > 100) progress = 100;
+    
+    if (percentage) {
+      percentage.textContent = `${Math.floor(progress)}%`;
+    }
+    
+    if (progress >= 100) {
+      clearInterval(interval);
+      setTimeout(() => {
+        loader.classList.add('exiting');
+        setTimeout(() => {
+          loader.classList.add('hidden');
+        }, 800);
+      }, 400);
+    }
+  }, 150);
+}
+
 // Initialize everything
 document.addEventListener('DOMContentLoaded', ()=>{
+  // Start premium loader
+  initPremiumLoader();
+  
   // Load components
   loadHTML('/src/components/header.html','#header-placeholder');
   loadHTML('/src/components/footer.html','#footer-placeholder');

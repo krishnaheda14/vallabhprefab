@@ -1,0 +1,293 @@
+/* FRAMER MOTION STYLE ANIMATIONS - Pure CSS */
+
+/* Smooth fade-in-up animation for sections */
+.fade-in-up {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stagger children animations */
+.stagger-children > * {
+  opacity: 0;
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+.stagger-children > *:nth-child(6) { animation-delay: 0.6s; }
+
+/* Scale in animation */
+.scale-in {
+  animation: scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Slide from left */
+.slide-from-left {
+  animation: slideFromLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes slideFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Slide from right */
+.slide-from-right {
+  animation: slideFromRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes slideFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Reveal on scroll - simplified */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.inview {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Intro stats smooth animations */
+.intro-stats {
+  animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+.stat {
+  animation: scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.stat:nth-child(1) { animation-delay: 0.5s; }
+.stat:nth-child(2) { animation-delay: 0.6s; }
+.stat:nth-child(3) { animation-delay: 0.7s; }
+
+/* Products preview smooth entry */
+.products-preview {
+  opacity: 0;
+  animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+}
+
+/* Top interiors slide animation */
+.top-interiors {
+  overflow: hidden;
+}
+
+.interior {
+  animation: slideFromLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.interior:nth-child(1) { animation-delay: 0.2s; }
+.interior:nth-child(2) { animation-delay: 0.3s; }
+.interior:nth-child(3) { animation-delay: 0.4s; }
+.interior:nth-child(4) { animation-delay: 0.5s; }
+
+/* Reasons grid smooth animations */
+.reasons-grid li {
+  animation: scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.reasons-grid li:nth-child(1) { animation-delay: 0.2s; }
+.reasons-grid li:nth-child(2) { animation-delay: 0.3s; }
+.reasons-grid li:nth-child(3) { animation-delay: 0.4s; }
+.reasons-grid li:nth-child(4) { animation-delay: 0.5s; }
+
+/* Hover animations - Framer Motion style */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px);
+}
+
+/* Card hover effects */
+.card,
+.stat,
+.solution-card {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card:hover,
+.stat:hover,
+.solution-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Button animations */
+.btn,
+.btn-massive {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:hover,
+.btn-massive:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(10, 95, 122, 0.3);
+}
+
+.btn:active,
+.btn-massive:active {
+  transform: translateY(0);
+}
+
+/* Smooth entrance for page elements */
+body {
+  animation: pageLoad 0.5s ease-out;
+}
+
+@keyframes pageLoad {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Gallery carousel smooth entrance */
+.carousel {
+  animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+}
+
+/* Inquiry strip animation */
+.inquiry-strip {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Smooth transitions for all interactive elements */
+a, button, input, select, textarea {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Remove animation on page load for better performance */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Intersection observer class for scroll reveals */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Smooth navigation appearance */
+.site-header {
+  animation: slideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Product cards in carousel - enhanced animations */
+.products-carousel .product-card {
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.products-carousel .product-card.active {
+  animation: cardPopIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes cardPopIn {
+  0% {
+    transform: translate(-50%, -50%) scale(0.95);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.05);
+    opacity: 1;
+  }
+}
+
+/* Floating animation for decorative elements */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Pulse animation for call-to-action elements */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(10, 95, 122, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(10, 95, 122, 0);
+  }
+}
+
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
