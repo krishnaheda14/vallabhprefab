@@ -189,13 +189,13 @@ img {
   position: relative;
   background: var(--gradient-hero);
   color: #fff;
-  padding: 5rem 2rem;
+  padding: 3rem 2rem;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 3rem;
-  min-height: 600px;
+  gap: 2rem;
+  min-height: 550px;
   z-index: 1;
   margin-bottom: 0;
 }
@@ -383,26 +383,29 @@ img {
   background: linear-gradient(180deg, var(--dark) 0%, var(--bg) 100%);
   position: relative;
   z-index: 3;
+  overflow-x: hidden;
 }
 
 .interiors-inner {
   display: flex;
-  gap: 1rem;
-  padding: 2rem 1.5rem 3rem;
+  gap: 0.875rem;
+  padding: 1.5rem 1.5rem 2rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   max-width: 1200px;
   margin: 0 auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .interior {
   flex: 0 0 auto;
-  width: clamp(280px, 33vw, 400px);
-  height: 240px;
-  border-radius: 16px;
+  width: clamp(260px, 30vw, 380px);
+  aspect-ratio: 4/3;
+  height: auto;
+  border-radius: 14px;
   overflow: hidden;
   position: relative;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 4px 16px rgba(10, 95, 122, 0.1);
   scroll-snap-align: center;
   animation: fadeInScale 0.8s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i) * 0.1s) backwards;
 }
@@ -422,6 +425,7 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -446,13 +450,13 @@ img {
 .intro-stats {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  padding: 4rem 2rem;
+  gap: 2rem;
+  padding: 3rem 2rem;
   max-width: 1200px;
-  margin: 4rem auto;
-  background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 100%);
-  border-radius: 24px;
-  box-shadow: var(--shadow-lg);
+  margin: 2rem auto;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafb 100%);
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(10, 95, 122, 0.08);
   position: relative;
   z-index: 1;
 }
@@ -465,23 +469,25 @@ img {
 
 .intro h2 {
   color: var(--dark);
-  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-  margin-bottom: 1.25rem;
-  background: var(--gradient-primary);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #0a5f7a 0%, #0d9488 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+  font-family: 'Space Grotesk', sans-serif;
 }
 
 .intro p {
-  font-size: 1.125rem;
-  color: var(--dark);
-  line-height: 1.7;
+  font-size: 1rem;
+  color: #4a5568;
+  line-height: 1.75;
   font-weight: 400;
-  opacity: 0.9;
+  opacity: 0.95;
+  font-family: 'Poppins', sans-serif;
 }
 
 .stats {
@@ -492,13 +498,14 @@ img {
 
 .stat {
   background: #fff;
-  padding: 2rem 1.5rem;
-  border-radius: 16px;
+  padding: 1.75rem 1.25rem;
+  border-radius: 14px;
   text-align: center;
-  box-shadow: var(--shadow-md);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 12px rgba(10, 95, 122, 0.06);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
+  border: 1px solid rgba(10, 95, 122, 0.08);
 }
 
 .stat::before {
@@ -518,31 +525,36 @@ img {
 }
 
 .stat:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-6px);
+  box-shadow: 0 8px 24px rgba(10, 95, 122, 0.12);
+  border-color: rgba(10, 95, 122, 0.15);
 }
 
 .stat strong {
   display: block;
-  font-size: 2.5rem;
-  font-weight: 800;
-  background: var(--gradient-primary);
+  font-size: 2.25rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #0a5f7a 0%, #0d9488 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.02em;
 }
 
 .stat span {
   display: block;
-  color: var(--muted);
-  font-size: 0.95rem;
+  color: #64748b;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* === PRODUCTS CAROUSEL (CIRCULAR ROTATION) === */
 .products-preview {
-  padding: 5rem 2rem;
-  background: linear-gradient(180deg, var(--bg) 0%, #fff 100%);
+  padding: 3.5rem 2rem;
+  background: linear-gradient(180deg, #fafbfc 0%, #fff 100%);
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -561,13 +573,14 @@ img {
 }
 
 .products-preview h2 {
-  color: var(--accent);
-  margin-bottom: 3.5rem;
+  color: #0a5f7a;
+  margin-bottom: 2.5rem;
   text-align: center;
-  font-size: clamp(1.875rem, 4vw, 2.75rem);
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
   position: relative;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  font-family: 'Space Grotesk', sans-serif;
 }
 
 .products-list {
@@ -874,15 +887,19 @@ img {
 
 /* === REASONS SECTION === */
 .reasons {
-  padding: 5rem 2rem;
+  padding: 3.5rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 .reasons h2 {
   text-align: center;
-  color: var(--accent);
-  margin-bottom: 3rem;
+  color: #0a5f7a;
+  margin-bottom: 2.5rem;
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  font-family: 'Space Grotesk', sans-serif;
 }
 
 .reasons-grid {
@@ -894,12 +911,13 @@ img {
 
 .reasons-grid li {
   background: #fff;
-  padding: 2rem;
-  border-radius: 16px;
-  box-shadow: var(--shadow-md);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 1.75rem 1.5rem;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(10, 95, 122, 0.06);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
+  border: 1px solid rgba(10, 95, 122, 0.08);
 }
 
 .reasons-grid li::before {
@@ -920,33 +938,42 @@ img {
 }
 
 .reasons-grid li:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-6px);
+  box-shadow: 0 8px 24px rgba(10, 95, 122, 0.12);
+  border-color: rgba(10, 95, 122, 0.15);
 }
 
 .reasons-grid strong {
   display: block;
-  color: var(--accent-bright);
-  font-size: 1.3rem;
-  margin-bottom: 0.75rem;
+  color: #0a5f7a;
+  font-size: 1.15rem;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
 }
 
 .reasons-grid span {
   display: block;
-  color: var(--muted);
+  color: #64748b;
   line-height: 1.7;
+  font-size: 0.95rem;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* === CAROUSEL / GALLERY === */
 .carousel {
-  padding: 5rem 2rem;
-  background: var(--bg);
+  padding: 3.5rem 2rem;
+  background: #fafbfc;
 }
 
 .carousel h2 {
   text-align: center;
-  color: var(--accent);
-  margin-bottom: 3rem;
+  color: #0a5f7a;
+  margin-bottom: 2.5rem;
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  font-family: 'Space Grotesk', sans-serif;
 }
 
 .carousel-inner {
@@ -976,10 +1003,10 @@ img {
   width: 380px;
   height: 240px;
   object-fit: cover;
-  border-radius: 16px;
-  box-shadow: var(--shadow-lg);
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(10, 95, 122, 0.1);
   scroll-snap-align: center;
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .carousel-inner img:hover {
@@ -992,13 +1019,13 @@ img {
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
-  background: var(--gradient-primary);
+  background: linear-gradient(135deg, #0a5f7a 0%, #0d9488 100%);
   color: #fff;
-  padding: 3rem 2rem;
-  margin: 3rem auto;
+  padding: 2.5rem 2rem;
+  margin: 2.5rem auto;
   max-width: 1100px;
-  border-radius: 20px;
-  box-shadow: var(--shadow-xl);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(10, 95, 122, 0.15);
   flex-wrap: wrap;
 }
 
@@ -1094,7 +1121,7 @@ img {
 @media (max-width: 768px) {
   .hero {
     flex-direction: column;
-    padding: 3rem 1.5rem;
+    padding: 2rem 1.5rem;
     min-height: auto;
   }
   
@@ -1104,8 +1131,9 @@ img {
   
   .intro-stats {
     grid-template-columns: 1fr;
-    gap: 2rem;
-    padding: 3rem 1.5rem;
+    gap: 1.25rem;
+    padding: 1.75rem 1.25rem;
+    margin: 1.5rem auto;
   }
   
   .stats {
@@ -1114,33 +1142,36 @@ img {
   
   /* Mobile carousel improvements */
   .products-preview {
-    padding: 3rem 0.5rem;
+    padding: 2rem 0.5rem;
   }
   
   .products-preview h2 {
     font-size: 1.8rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
   
   .products-carousel {
-    height: 560px;
-    perspective: 800px;
-    padding: 0 10px;
+    height: auto;
+    perspective: none;
+    padding: 0 8px;
     max-width: 100%;
+    overflow: visible;
+    display: block;
   }
   
   .product-card {
-    width: calc(100vw - 100px);
-    max-width: 360px;
-    height: 500px;
-    padding: 1.5rem;
-    border-radius: 20px;
-  }
-  
-  /* Hide side cards completely on mobile for better focus */
-  .product-card:not(.active) {
-    opacity: 0 !important;
-    pointer-events: none;
+    position: relative !important;
+    left: 0 !important;
+    transform: none !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    width: calc(100vw - 40px);
+    max-width: 400px;
+    min-height: 420px;
+    height: auto;
+    padding: 1.25rem;
+    border-radius: 18px;
+    margin: 0 auto 1rem;
   }
   
   .card-image-wrapper {
@@ -1163,15 +1194,13 @@ img {
   
   .card-features li {
     font-size: 0.85rem;
-    padding: 0.5rem 0;
-    padding-left: 1.8rem;
-    align-items: flex-start;
+    padding: 0.4rem 0;
   }
-  
-  .card-features li::before {
-    top: 0.5rem;
+
+  .stat {
+    padding: 1.4rem 1.1rem;
   }
-  
+
   .carousel-nav {
     width: 50px;
     height: 50px;
@@ -1222,6 +1251,25 @@ img {
     flex-direction: column;
     text-align: center;
   }
+
+  /* Interior images mobile fix */
+  .interior {
+    width: clamp(240px, 80vw, 320px);
+    aspect-ratio: 4/3;
+    height: auto !important;
+  }
+
+  .interior img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .interiors-inner {
+    padding: 1.5rem 1rem;
+    gap: 0.8rem;
+  }
 }
 
 /* Tablet adjustments */
@@ -1251,6 +1299,13 @@ img {
   .products-carousel {
     height: 580px;
     padding: 0 5px;
+  }
+
+  /* Ensure images don't stretch on small devices */
+  .interior {
+    width: clamp(220px, 85vw, 280px);
+    min-height: 165px;
+    max-height: 210px;
   }
   
   .product-card {

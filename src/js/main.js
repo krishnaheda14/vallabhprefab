@@ -104,6 +104,8 @@ function initParallax() {
 // Premium loading animation with progress
 function initPremiumLoader() {
   const loader = document.getElementById('page-loader');
+  if (!loader) return;
+  
   const percentage = document.getElementById('loader-percentage');
   let progress = 0;
   

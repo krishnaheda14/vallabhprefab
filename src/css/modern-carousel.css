@@ -364,12 +364,10 @@
 .product-card .card-features li {
   color: #667;
   font-size: 0.875rem;
-  padding: 0.55rem 0;
-  padding-left: 1.75rem;
+  padding: 0.5rem 0;
   position: relative;
   transition: color 0.3s ease, transform 0.3s ease;
-  display: block;
-  clear: both;
+  line-height: 1.6;
 }
 
 .product-card.active .card-features li {
@@ -381,19 +379,7 @@
 .product-card .card-features li:nth-child(3) { --i: 2; }
 
 .product-card .card-features li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  top: 0.55rem;
-  color: var(--accent);
-  font-weight: 700;
-  font-size: 1rem;
-  transition: transform 0.3s ease;
-  line-height: 1;
-}
-
-.product-card.active:hover .card-features li::before {
-  transform: scale(1.2);
+  display: none;
 }
 
 /* NAVIGATION ARROWS - Modern design */
@@ -658,4 +644,59 @@
 
 .product-card::-webkit-scrollbar-thumb:hover {
   background: var(--accent);
+}
+
+/* MOBILE RESPONSIVE FIX FOR CAROUSEL */
+@media (max-width: 992px) {
+  .products-carousel {
+    height: auto !important;
+    min-height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2rem !important;
+    padding: 2rem 1rem !important;
+    perspective: none !important;
+    overflow: visible !important;
+  }
+
+  .product-card,
+  .product-card.active,
+  .product-card:not(.active),
+  .product-card.left-1,
+  .product-card.left-2,
+  .product-card.right-1,
+  .product-card.right-2 {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    opacity: 1 !important;
+    filter: none !important;
+    pointer-events: auto !important;
+    margin: 0 !important;
+    z-index: 1 !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+  }
+
+  /* Hide navigation on mobile since it's a list now */
+  .carousel-nav,
+  .carousel-indicators {
+    display: none !important;
+  }
+  
+  /* Adjust card content for mobile */
+  .product-card .card-image-wrapper {
+    height: 200px !important;
+  }
+  
+  /* Ensure text is visible */
+  .product-card h3, 
+  .product-card p,
+  .product-card .card-features li {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }

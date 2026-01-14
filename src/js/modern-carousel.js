@@ -14,21 +14,14 @@ let carouselState = {
 };
 
 function initProductCarousel() {
-  console.log('🎠 Modern Carousel: Initializing...');
-  
   const carousel = document.querySelector('.products-carousel');
   const cards = document.querySelectorAll('.product-card');
   
-  console.log('Carousel element:', carousel);
-  console.log('Found cards:', cards.length);
-  
-  if (!carousel || !cards || cards.length === 0) {
-    console.warn('❌ Carousel initialization failed: Missing elements');
+  if (!carousel || !cards.length) {
     return;
   }
   
   carouselState.totalCards = cards.length;
-  console.log('✅ Carousel state initialized with', carouselState.totalCards, 'cards');
   
   // Create floating particles for visual effect
   createFloatingParticles(carousel);
@@ -54,7 +47,6 @@ function initProductCarousel() {
   // Initialize with entrance animation
   setTimeout(() => {
     carousel.classList.add('initialized');
-    console.log('✅ Carousel fully initialized and ready');
   }, 100);
 }
 
@@ -128,6 +120,15 @@ function createIndicators(carousel, count) {
 }
 
 function updateCarouselPosition(cards, animated = true) {
+  // Mobile check - clear styles and exit to let CSS handle layout
+  if (window.innerWidth <= 992) {
+    cards.forEach(card => {
+      card.style = '';
+      card.classList.remove('active', 'left-1', 'left-2', 'right-1', 'right-2');
+    });
+    return;
+  }
+
   if (carouselState.isAnimating && animated) return;
   
   if (animated) {
@@ -322,20 +323,16 @@ function setupKeyboardNavigation(cards) {
 
 function navigateCarousel(direction, cards) {
   if (carouselState.isAnimating) {
-    console.log('⏸️ Navigation blocked: Animation in progress');
     return;
   }
   
   const totalCards = carouselState.totalCards;
-  const oldIndex = carouselState.currentIndex;
   
   if (direction === 'next') {
     carouselState.currentIndex = (carouselState.currentIndex + 1) % totalCards;
   } else {
     carouselState.currentIndex = (carouselState.currentIndex - 1 + totalCards) % totalCards;
   }
-  
-  console.log(`🔄 Navigate ${direction}: ${oldIndex} → ${carouselState.currentIndex}`);
   
   updateCarouselPosition(cards);
 }

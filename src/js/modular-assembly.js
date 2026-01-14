@@ -2,12 +2,8 @@
 // Using simple CSS animations instead
 
 function initModularAssembly() {
-  console.log('🏗️ Modular Assembly: Disabled (using CSS animations instead)');
-  
   // Only add construction progress bar
   addConstructionProgress();
-  
-  console.log('✅ Simple animations active');
 }
 
 // HERO SECTION - Modular Text Drop Animation
@@ -116,10 +112,7 @@ function triggerScreenShake(element) {
 
 // SCROLL-TRIGGERED ASSEMBLY EFFECTS
 function initScrollAssembly() {
-  console.log('📜 Initializing scroll assembly effects...');
-  
   const statsElements = gsap.utils.toArray('.stat');
-  console.log('Found stats elements:', statsElements.length);
   
   // Intro stats - slide in from sides like panels
   statsElements.forEach((stat, index) => {
@@ -373,7 +366,6 @@ if (document.readyState === 'loading') {
         initModularAssembly();
       } else if (attempts > 20) {
         clearInterval(checkGSAP);
-        console.warn('GSAP failed to load after 20 attempts');
       }
     }, 100);
   });
@@ -387,7 +379,6 @@ if (document.readyState === 'loading') {
       initModularAssembly();
     } else if (attempts > 20) {
       clearInterval(checkGSAP);
-      console.warn('GSAP failed to load after 20 attempts');
     }
   }, 100);
 }
