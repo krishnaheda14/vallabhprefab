@@ -120,14 +120,14 @@ function createIndicators(carousel, count) {
 }
 
 function updateCarouselPosition(cards, animated = true) {
-  // Mobile check - clear styles and exit to let CSS handle layout
-  if (window.innerWidth <= 992) {
+  // Mobile check removed to allow carousel on all devices
+  /* if (window.innerWidth <= 992) {
     cards.forEach(card => {
       card.style = '';
       card.classList.remove('active', 'left-1', 'left-2', 'right-1', 'right-2');
     });
     return;
-  }
+  } */
 
   if (carouselState.isAnimating && animated) return;
   

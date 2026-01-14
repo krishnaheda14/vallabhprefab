@@ -581,7 +581,7 @@
   }
 
   .products-carousel {
-    padding: 0 50px;
+    padding: 0;
     height: 520px;
   }
 
@@ -646,8 +646,8 @@
   background: var(--accent);
 }
 
-/* MOBILE RESPONSIVE FIX FOR CAROUSEL */
-@media (max-width: 992px) {
+/* MOBILE RESPONSIVE FIX FOR CAROUSEL - DISABLED TO ENABLE CAROUSEL ON MOBILE */
+/* @media (max-width: 992px) {
   .products-carousel {
     height: auto !important;
     min-height: auto !important;
@@ -681,22 +681,19 @@
     box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
   }
 
-  /* Hide navigation on mobile since it's a list now */
   .carousel-nav,
   .carousel-indicators {
     display: none !important;
   }
   
-  /* Adjust card content for mobile */
   .product-card .card-image-wrapper {
     height: 200px !important;
   }
   
-  /* Ensure text is visible */
   .product-card h3, 
   .product-card p,
   .product-card .card-features li {
     opacity: 1 !important;
     transform: none !important;
   }
-}
+} */

@@ -90,7 +90,11 @@
       });
       
       button.addEventListener('mouseleave', () => {
-        button.style.transform = '';
+        if (button.classList.contains('carousel-nav')) {
+          button.style.transform = 'translateY(-50%)';
+        } else {
+          button.style.transform = '';
+        }
       });
     });
   }
