@@ -8,8 +8,10 @@
   <link rel="stylesheet" href="/src/css/style.css">
   <link rel="stylesheet" href="/src/css/enhancements.css">
   <link rel="stylesheet" href="/src/css/advanced-animations.css">
-  <link rel="stylesheet" href="/src/css/modern-carousel.css">
   <link rel="stylesheet" href="/src/css/premium-loader.css">
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <link rel="stylesheet" href="/src/css/products-swiper.css">
 </head>
 <body>
   <div id="header-placeholder"></div>
@@ -18,8 +20,91 @@
     <p class="lede">Choose from engineered prefabricated solutions designed for fast installation and long service life.</p>
 
     <section class="products-list">
-      <!-- Product cards loaded from component -->
-      <div id="product-cards-placeholder" class="products-carousel"></div>
+      <!-- Swiper Product Carousel -->
+      <div class="swiper products-swiper">
+        <div class="swiper-wrapper">
+          <!-- Slide 1 -->
+          <div class="swiper-slide">
+            <div class="product-card-swiper">
+              <div class="card-image-wrapper">
+                <img src="/src/assets/images/sample-office-1.jpg" alt="Prefabricated Office Cabin">
+              </div>
+              <h3>Prefabricated Office Cabins</h3>
+              <p>Steel-framed office modules with insulation, windows and optional furniture packs.</p>
+              <ul class="card-features">
+                <li>Custom layouts & sizes available</li>
+                <li>AC-ready with thermal insulation</li>
+                <li>Fast 2-week installation</li>
+              </ul>
+            </div>
+          </div>
+          <!-- Slide 2 -->
+          <div class="swiper-slide">
+            <div class="product-card-swiper">
+              <div class="card-image-wrapper">
+                <img src="/src/assets/images/boundarywall.jpg" alt="Precast Compound Wall">
+              </div>
+              <h3>Precast Compound Walls</h3>
+              <p>High-strength precast panels for secure perimeters, quick install and long-term durability.</p>
+              <ul class="card-features">
+                <li>20+ year lifespan guarantee</li>
+                <li>Reinforced concrete panels</li>
+                <li>Multiple height options</li>
+              </ul>
+            </div>
+          </div>
+          <!-- Slide 3 -->
+          <div class="swiper-slide">
+            <div class="product-card-swiper">
+              <div class="card-image-wrapper">
+                <img src="/src/assets/images/interior-2.jpg" alt="Prefabricated Toilet Unit">
+              </div>
+              <h3>Portable Toilets & Washrooms</h3>
+              <p>Factory-built sanitary modules with modern fittings, proper ventilation and waterproof construction.</p>
+              <ul class="card-features">
+                <li>Waterproof construction</li>
+                <li>Standard & luxury variants</li>
+                <li>Portable & relocatable</li>
+              </ul>
+            </div>
+          </div>
+          <!-- Slide 4 -->
+          <div class="swiper-slide">
+            <div class="product-card-swiper">
+              <div class="card-image-wrapper">
+                <img src="/src/assets/images/labour cottage sample.jpg" alt="Labour Cottages">
+              </div>
+              <h3>Labour Accommodation Cottages</h3>
+              <p>Comfortable worker housing with proper ventilation, lighting and essential sanitation facilities.</p>
+              <ul class="card-features">
+                <li>Multi-person capacity options</li>
+                <li>Durable & weather-resistant</li>
+                <li>Cost-effective housing solution</li>
+              </ul>
+            </div>
+          </div>
+          <!-- Slide 5 -->
+          <div class="swiper-slide">
+            <div class="product-card-swiper">
+              <div class="card-image-wrapper">
+                <img src="/src/assets/images/construction-1.jpg" alt="Security Guard Cabins">
+              </div>
+              <h3>Security Guard Cabins</h3>
+              <p>Portable security posts with AC provisions, visibility windows and weather-resistant design.</p>
+              <ul class="card-features">
+                <li>360° visibility design</li>
+                <li>AC & lighting provisions</li>
+                <li>Quick site deployment</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- Navigation arrows -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+        <!-- Pagination dots -->
+        <div class="swiper-pagination"></div>
+      </div>
     </section>
 
     <section class="more-products">
@@ -81,6 +166,8 @@
   <script src="/src/js/main.js"></script>
   <script src="/src/js/enhancements.js"></script>
   <script src="/src/js/advanced-animations.js"></script>
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="/src/js/products-swiper.js"></script>
 </body>
-</html>
 </html>

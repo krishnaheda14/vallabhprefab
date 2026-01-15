@@ -340,8 +340,8 @@ h2:hover::after {
   }
 }
 
-/* Carousel navigation glow */
-.carousel-nav {
+/* Carousel navigation glow - DISABLED to prevent conflicts with modern-carousel.css */
+/* .carousel-nav {
   position: relative;
   overflow: visible;
 }
@@ -361,7 +361,7 @@ h2:hover::after {
 .carousel-nav:hover::before {
   opacity: 0.8;
   animation: glowPulse 1.5s ease-in-out infinite;
-}
+} */
 
 @keyframes glowPulse {
   0%, 100% {

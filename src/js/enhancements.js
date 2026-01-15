@@ -93,23 +93,11 @@
     });
   }
 
-  // Add magnetic effect to buttons
+  // Add magnetic effect to buttons - DISABLED TO PREVENT CONFLICTS
   function magneticButtons() {
-    const buttons = document.querySelectorAll('.btn');
-    
-    buttons.forEach(btn => {
-      btn.addEventListener('mousemove', (e) => {
-        const rect = btn.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        
-        btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px) translateY(-4px)`;
-      });
-      
-      btn.addEventListener('mouseleave', () => {
-        btn.style.transform = '';
-      });
-    });
+    // DISABLED - Conflicts with other animation systems
+    // This function is intentionally disabled
+    return;
   }
 
   // Initialize everything when DOM is ready

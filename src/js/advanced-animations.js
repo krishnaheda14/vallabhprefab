@@ -71,32 +71,12 @@
   }
 
   // ==================== 
-  // MAGNETIC CURSOR EFFECT ON BUTTONS
+  // MAGNETIC CURSOR EFFECT ON BUTTONS - COMPLETELY DISABLED
   // ==================== 
   function initMagneticButtons() {
-    if (window.innerWidth < 768) return; // Skip on mobile
-    
-    const buttons = document.querySelectorAll('.btn, .carousel-nav');
-    
-    buttons.forEach(button => {
-      button.addEventListener('mousemove', (e) => {
-        const rect = button.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        
-        button.style.transform = button.classList.contains('carousel-nav')
-          ? `translateY(-50%) translate(${x * 0.2}px, ${y * 0.2}px)`
-          : `translate(${x * 0.15}px, ${y * 0.15}px) translateY(-4px)`;
-      });
-      
-      button.addEventListener('mouseleave', () => {
-        if (button.classList.contains('carousel-nav')) {
-          button.style.transform = 'translateY(-50%)';
-        } else {
-          button.style.transform = '';
-        }
-      });
-    });
+    // COMPLETELY DISABLED - This was causing arrow positioning glitches
+    // The carousel arrows use CSS transforms and this JS was interfering
+    return;
   }
 
   // ==================== 
@@ -305,35 +285,9 @@
   // PRODUCT CAROUSEL TOUCH SWIPE
   // ==================== 
   function initTouchSwipe() {
-    const carousel = document.querySelector('.products-carousel');
-    if (!carousel) return;
-    
-    let touchStartX = 0;
-    let touchEndX = 0;
-    
-    carousel.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-    });
-    
-    carousel.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      handleSwipe();
-    });
-    
-    function handleSwipe() {
-      const swipeThreshold = 50;
-      const diff = touchStartX - touchEndX;
-      
-      if (Math.abs(diff) > swipeThreshold) {
-        if (diff > 0) {
-          // Swipe left - next
-          document.querySelector('.carousel-nav.next')?.click();
-        } else {
-          // Swipe right - prev
-          document.querySelector('.carousel-nav.prev')?.click();
-        }
-      }
-    }
+    // Touch swipe handler disabled - modern-carousel.js provides touch handling.
+    // Leaving this disabled prevents duplicate navigation clicks and conflicts.
+    return;
   }
 
   // ==================== 

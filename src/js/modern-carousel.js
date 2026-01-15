@@ -16,8 +16,16 @@ let carouselState = {
 function initProductCarousel() {
   const carousel = document.querySelector('.products-carousel');
   const cards = document.querySelectorAll('.product-card');
-  
+
+  console.log('initProductCarousel called', {
+    carouselExists: !!carousel,
+    cardsFound: cards.length,
+    carouselWidth: carousel ? carousel.offsetWidth : null,
+    carouselHeight: carousel ? carousel.offsetHeight : null
+  });
+
   if (!carousel || !cards.length) {
+    console.warn('initProductCarousel: missing carousel or cards', { carouselExists: !!carousel, cardsFound: cards.length });
     return;
   }
   
@@ -33,6 +41,8 @@ function initProductCarousel() {
   createIndicators(carousel, cards.length);
   
   // Initialize carousel position
+  // Debug: log initial carousel state
+  try { console.debug('initProductCarousel: total cards =', cards.length); } catch (e) {}
   updateCarouselPosition(cards);
   
   // Setup event listeners
@@ -48,6 +58,36 @@ function initProductCarousel() {
   setTimeout(() => {
     carousel.classList.add('initialized');
   }, 100);
+
+  // Optional visual debug overlay (show when URL hash contains #debug-carousel)
+  if (window.location.hash && window.location.hash.indexOf('debug-carousel') !== -1) {
+    const dbg = document.createElement('div');
+    dbg.id = 'carousel-debug-overlay';
+    dbg.style.cssText = 'position:fixed;bottom:12px;left:12px;z-index:99999;padding:10px 12px;background:rgba(0,0,0,0.85);color:#0f0;border-radius:8px;font-family:monospace;font-size:11px;max-width:90vw;line-height:1.4;';
+    dbg.innerHTML = `<div>Carousel: 0/${cards.length-1}</div><div>Active cards: 0</div><div>Listeners: checking...</div>`;
+    document.body.appendChild(dbg);
+    
+    // Log all event listeners attached to arrows
+    setTimeout(() => {
+      const prev = carousel.querySelector('.carousel-nav.prev');
+      const next = carousel.querySelector('.carousel-nav.next');
+      let listenerCount = 0;
+      if (prev) {
+        const listeners = getEventListeners ? getEventListeners(prev) : {};
+        listenerCount += Object.keys(listeners).length;
+      }
+      if (next) {
+        const listeners = getEventListeners ? getEventListeners(next) : {};
+        listenerCount += Object.keys(listeners).length;
+      }
+      const debugEl = document.getElementById('carousel-debug-overlay');
+      if (debugEl) {
+        const lines = debugEl.innerHTML.split('</div>');
+        lines[2] = `<div>Listeners: ${listenerCount || 'unknown'}</div>`;
+        debugEl.innerHTML = lines.join('</div>');
+      }
+    }, 500);
+  }
 }
 
 function createFloatingParticles(carousel) {
@@ -75,6 +115,7 @@ function createFloatingParticles(carousel) {
 function createNavigationArrows(carousel) {
   // Previous button
   const prevBtn = document.createElement('button');
+  prevBtn.type = 'button';
   prevBtn.className = 'carousel-nav prev';
   prevBtn.innerHTML = `
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -85,6 +126,7 @@ function createNavigationArrows(carousel) {
   
   // Next button
   const nextBtn = document.createElement('button');
+  nextBtn.type = 'button';
   nextBtn.className = 'carousel-nav next';
   nextBtn.innerHTML = `
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -139,11 +181,27 @@ function updateCarouselPosition(cards, animated = true) {
   }
   
   const currentIndex = carouselState.currentIndex;
+  try { console.debug('updateCarouselPosition -> currentIndex =', currentIndex, 'isMobile=', window.innerWidth <= 768); } catch (e) {}
+  // Diagnostic: log each card's index and classes before changes
+  try {
+    console.log('Cards before update:', Array.from(cards).map((c, i) => ({i, classes: c.className, display: window.getComputedStyle(c).display, opacity: window.getComputedStyle(c).opacity})));
+  } catch (e) {}
   const isMobile = window.innerWidth <= 768;
   
   cards.forEach((card, idx) => {
     // Remove all position classes
     card.classList.remove('active', 'left-1', 'left-2', 'right-1', 'right-2');
+    
+    // On mobile, let CSS handle styling completely - only manage active class
+    if (isMobile) {
+      if (idx === currentIndex) {
+        card.classList.add('active');
+      }
+      // Don't set any inline styles on mobile - let CSS take full control
+      return;
+    }
+    
+    // Desktop carousel positioning logic
     card.style.transition = animated ? 
       'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)' : 
       'none';
@@ -189,9 +247,26 @@ function updateCarouselPosition(cards, animated = true) {
       card.style.zIndex = '10';
     }
   });
+  // Diagnostic: log each card's index and classes after changes
+  try {
+    console.log('Cards after update:', Array.from(cards).map((c, i) => ({i, classes: c.className, transform: window.getComputedStyle(c).transform, opacity: window.getComputedStyle(c).opacity})));
+  } catch (e) {}
   
   // Update indicators
   updateIndicators(currentIndex);
+  // Update debug overlay if present
+  const dbgEl = document.getElementById('carousel-debug-overlay');
+  if (dbgEl) {
+    const activeCards = Array.from(cards).filter(c => c.classList.contains('active'));
+    const activeCard = activeCards[0];
+    let transformInfo = 'none';
+    if (activeCard) {
+      const computed = window.getComputedStyle(activeCard);
+      transformInfo = computed.transform || 'none';
+      transformInfo = transformInfo.substring(0, 40);
+    }
+    dbgEl.innerHTML = `<div>Carousel: ${currentIndex}/${cards.length-1}</div><div>Active: ${activeCards.length} (display: ${activeCard ? window.getComputedStyle(activeCard).display : 'N/A'})</div><div>Transform: ${transformInfo}</div>`;
+  }
 }
 
 function updateIndicators(currentIndex) {
@@ -401,5 +476,33 @@ if (!document.querySelector('#ripple-animation-style')) {
   document.head.appendChild(style);
 }
 
+// Recalculate carousel positions (for when container becomes visible)
+function recalculateCarousel() {
+  const carousel = document.querySelector('.products-carousel');
+  const cards = document.querySelectorAll('.product-card');
+  
+  if (!carousel || !cards.length) {
+    return;
+  }
+  
+  try {
+    console.log('Recalculating carousel positions...');
+    console.log('Container width:', carousel.offsetWidth);
+    console.log('Container height:', carousel.offsetHeight);
+  } catch (e) {}
+  
+  // Force layout recalculation
+  void carousel.offsetWidth;
+  
+  // Update positions without animation
+  updateCarouselPosition(cards, false);
+  
+  // Then animate to current position
+  setTimeout(() => {
+    updateCarouselPosition(cards, true);
+  }, 50);
+}
+
 // Export for use in main.js
 window.initProductCarousel = initProductCarousel;
+window.recalculateCarousel = recalculateCarousel;

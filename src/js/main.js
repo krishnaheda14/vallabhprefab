@@ -4,24 +4,86 @@ function loadHTML(path, selector){
     const el = document.querySelector(selector);
     if(el) {
       el.innerHTML = html;
-      // Initialize modern carousel after product cards load
-      if(selector === '#product-cards-placeholder') {
-        // Load modern carousel script dynamically
-        const script = document.createElement('script');
-        script.src = '/src/js/modern-carousel.js';
-        script.onload = () => {
-          setTimeout(() => {
-            if (typeof window.initProductCarousel === 'function') {
-              window.initProductCarousel();
-            }
-          }, 200);
-        };
-        document.body.appendChild(script);
-      }
+      // No carousel initialization for home page - using static grid instead
     }
   }).catch(err=>{
     // Failed to load resource - debug log removed
   });
+}
+
+// Wait for carousel container to be visible before initializing
+function waitForCarouselVisibility() {
+  const productsSection = document.querySelector('.products-preview');
+  const carousel = document.querySelector('.products-carousel');
+  
+  if (!productsSection || !carousel) {
+    console.warn('Carousel elements not found');
+    return;
+  }
+  
+  // Check if already visible (opacity > 0 and has dimensions)
+  const isVisible = () => {
+    const styles = window.getComputedStyle(productsSection);
+    const opacity = parseFloat(styles.opacity);
+    const rect = productsSection.getBoundingClientRect();
+    return opacity > 0 && rect.width > 0 && rect.height > 0;
+  };
+  
+  // If already visible, init immediately
+  if (isVisible()) {
+    if (typeof window.initProductCarousel === 'function') {
+      window.initProductCarousel();
+    }
+    return;
+  }
+  
+  // Otherwise, wait for visibility using multiple strategies
+  
+  // Strategy 1: IntersectionObserver for when section enters viewport
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && isVisible()) {
+        observer.disconnect();
+        if (typeof window.initProductCarousel === 'function') {
+          window.initProductCarousel();
+          // Recalculate after a brief delay to ensure layout is stable
+          setTimeout(() => {
+            if (typeof window.recalculateCarousel === 'function') {
+              window.recalculateCarousel();
+            }
+          }, 100);
+        }
+      }
+    });
+  }, { threshold: 0.1 });
+  
+  observer.observe(productsSection);
+  
+  // Strategy 2: Fallback using animation end event
+  productsSection.addEventListener('animationend', () => {
+    if (isVisible() && typeof window.initProductCarousel === 'function') {
+      observer.disconnect();
+      window.initProductCarousel();
+      setTimeout(() => {
+        if (typeof window.recalculateCarousel === 'function') {
+          window.recalculateCarousel();
+        }
+      }, 100);
+    }
+  }, { once: true });
+  
+  // Strategy 3: Timeout fallback (in case animation completes before we attach listener)
+  setTimeout(() => {
+    if (isVisible() && typeof window.initProductCarousel === 'function') {
+      observer.disconnect();
+      window.initProductCarousel();
+      setTimeout(() => {
+        if (typeof window.recalculateCarousel === 'function') {
+          window.recalculateCarousel();
+        }
+      }, 100);
+    }
+  }, 1500);
 }
 
 function initLazy(){
